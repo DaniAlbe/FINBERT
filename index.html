@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>FinBert Pro</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#f2f2f7">
+    
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #f2f2f7; --card: #ffffff; --text: #000000; --text-sec: #8e8e93;
+            --primary: #007aff; --green: #34c759; --red: #ff3b30; --orange: #ff9500;
+            --separator: #c6c6c8; --modal-bg: #ffffff;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #000000; --card: #1c1c1e; --text: #ffffff; --text-sec: #8e8e93;
+                --separator: #38383a; --modal-bg: #1c1c1e;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg); color: var(--text);
+            margin: 0; padding: 0; padding-bottom: 100px; padding-top: env(safe-area-inset-top);
+            -webkit-tap-highlight-color: transparent; user-select: none;
+        }
+
+        /* TYPOGRAPHY */
+        h1 { margin: 0; font-size: 34px; font-weight: 700; letter-spacing: -0.5px; }
+        h2 { font-size: 22px; font-weight: 600; margin-bottom: 15px; }
+        .subtitle { color: var(--text-sec); font-size: 13px; text-transform: uppercase; font-weight: 600; margin-bottom: 5px; }
+        .money { font-family: "SF Pro Display", sans-serif; font-weight: 700; font-feature-settings: "tnum"; }
+        .green { color: var(--green); } .red { color: var(--red); }
+
+        /* LAYOUT COMPONENTS */
+        .header { padding: 20px 20px 10px 20px; }
+        .section { margin: 20px; }
+        
+        .card {
+            background: var(--card); border-radius: 12px; overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px;
+        }
+
+        .list-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px; border-bottom: 0.5px solid var(--separator);
+            position: relative;
+        }
+        .list-row:last-child { border-bottom: none; }
+        .list-row:active { background-color: rgba(128,128,128,0.1); }
+
+        .row-icon {
+            width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 20px; margin-right: 15px; color: white; flex-shrink: 0;
+        }
+        .row-content { flex-grow: 1; }
+        .row-title { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
+        .row-sub { font-size: 14px; color: var(--text-sec); }
+        .row-amount { font-size: 17px; font-weight: 600; text-align: right; }
+
+        /* DASHBOARD SPECIFIC */
+        .big-balance { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin: 5px 0 20px 0; }
+        .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .summary-card { background: var(--card); padding: 15px; border-radius: 12px; }
+        .summary-label { font-size: 12px; color: var(--text-sec); font-weight: 600; text-transform: uppercase; }
+        .summary-val { font-size: 20px; font-weight: 700; margin-top: 5px; }
+
+        /* TAB BAR */
+        .tab-bar {
+            position: fixed; bottom: 0; left: 0; right: 0; height: 85px;
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-top: 0.5px solid var(--separator);
+            display: flex; justify-content: space-around; padding-top: 10px; z-index: 100;
+        }
+        @media (prefers-color-scheme: dark) { .tab-bar { background: rgba(28, 28, 30, 0.85); } }
+        
+        .tab-btn {
+            background: none; border: none; color: #999;
+            display: flex; flex-direction: column; align-items: center; gap: 4px;
+            font-size: 10px; font-weight: 500; width: 60px;
+        }
+        .tab-btn i { font-size: 24px; margin-bottom: 2px; }
+        .tab-btn.active { color: var(--primary); }
+
+        /* FAB (Add Button) */
+        .fab {
+            position: fixed; bottom: 100px; right: 20px;
+            background: var(--primary); color: white;
+            width: 56px; height: 56px; border-radius: 28px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px; box-shadow: 0 4px 15px rgba(0,122,255,0.4);
+            border: none; z-index: 90; transition: transform 0.1s;
+        }
+        .fab:active { transform: scale(0.9); }
+
+        /* MODAL (SHEET) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4); z-index: 200; display: none;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .modal-sheet {
+            position: fixed; bottom: -100%; left: 0; right: 0;
+            background: var(--modal-bg);
+            border-top-left-radius: 20px; border-top-right-radius: 20px;
+            padding: 20px; z-index: 201; transition: bottom 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            max-height: 90vh; overflow-y: auto; padding-bottom: 50px;
+        }
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .close-btn { background: #e5e5ea; color: #000; border: none; width: 30px; height: 30px; border-radius: 15px; font-size: 18px; display: flex; align-items: center; justify-content: center; }
+
+        /* FORM ELEMENTS */
+        .form-group { margin-bottom: 15px; }
+        input, select {
+            width: 100%; padding: 16px; background: var(--bg); border: none;
+            border-radius: 10px; font-size: 17px; color: var(--text);
+            box-sizing: border-box; outline: none; -webkit-appearance: none;
+        }
+        .action-btn {
+            width: 100%; padding: 16px; background: var(--primary); color: white;
+            border: none; border-radius: 12px; font-size: 17px; font-weight: 700; margin-top: 10px;
+        }
+
+        /* VIEWS */
+        .view { display: none; animation: fadeIn 0.2s; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* PORTFOLIO BARS */
+        .progress-bar { height: 4px; background: #e5e5ea; border-radius: 2px; margin-top: 8px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); border-radius: 2px; }
+
+    </style>
+</head>
+<body>
+
+    <div id="view-dashboard" class="view active">
+        <div class="header">
+            <div class="subtitle">Patrimonio Netto</div>
+            <div class="big-balance money" id="netWorth">0,00 €</div>
+        </div>
+
+        <div class="section">
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <div class="row-icon" style="background: var(--primary); margin-bottom:10px;"><i class="ri-bank-fill"></i></div>
+                    <div class="summary-label">Liquidità</div>
+                    <div class="summary-val money" id="liquidTotal">0,00 €</div>
+                </div>
+                <div class="summary-card">
+                    <div class="row-icon" style="background: var(--green); margin-bottom:10px;"><i class="ri-line-chart-fill"></i></div>
+                    <div class="summary-label">Investimenti</div>
+                    <div class="summary-val money" id="investTotal">0,00 €</div>
+                </div>
+            </div>
+            
+            <h2 style="margin-top:30px">Composizione</h2>
+            <div class="card">
+                <div class="list-row">
+                    <div class="row-icon" style="background: #5856D6"><i class="ri-government-fill"></i></div>
+                    <div class="row-content">
+                        <div class="row-title">Banca</div>
+                        <div class="row-sub">Conti correnti</div>
+                    </div>
+                    <div class="row-amount money" id="bankRow">0,00 €</div>
+                </div>
+                <div class="list-row">
+                    <div class="row-icon" style="background: var(--orange)"><i class="ri-money-euro-circle-fill"></i></div>
+                    <div class="row-content">
+                        <div class="row-title">Contanti</div>
+                        <div class="row-sub">Portafoglio</div>
+                    </div>
+                    <div class="row-amount money" id="cashRow">0,00 €</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="view-wallet" class="view">
+        <div class="header"><h1>Wallet</h1></div>
+        <div class="section">
+            <div class="card" id="transactionList">
+                </div>
+        </div>
+        <button class="fab" onclick="openModal('transaction')"><i class="ri-add-line"></i></button>
+    </div>
+
+    <div id="view-portfolio" class="view">
+        <div class="header"><h1>Portfolio</h1></div>
+        <div class="section">
+            <div class="card" id="investmentList">
+                </div>
+        </div>
+        <button class="fab" onclick="openModal('investment')"><i class="ri-add-line"></i></button>
+    </div>
+
+    <div id="view-settings" class="view">
+        <div class="header"><h1>Impostazioni</h1></div>
+        <div class="section">
+            <div class="card">
+                <div class="list-row" onclick="exportData()">
+                    <div class="row-icon" style="background: var(--primary)"><i class="ri-download-cloud-2-fill"></i></div>
+                    <div class="row-content">
+                        <div class="row-title">Esporta Backup</div>
+                        <div class="row-sub">Salva i tuoi dati in un file</div>
+                    </div>
+                    <i class="ri-arrow-right-s-line" style="color:#ccc"></i>
+                </div>
+                <div class="list-row" onclick="document.getElementById('importFile').click()">
+                    <div class="row-icon" style="background: var(--orange)"><i class="ri-upload-cloud-2-fill"></i></div>
+                    <div class="row-content">
+                        <div class="row-title">Importa Backup</div>
+                        <div class="row-sub">Ripristina da file JSON</div>
+                    </div>
+                    <i class="ri-arrow-right-s-line" style="color:#ccc"></i>
+                    <input type="file" id="importFile" style="display:none" onchange="importData(this)">
+                </div>
+                <div class="list-row" onclick="resetAll()">
+                    <div class="row-icon" style="background: var(--red)"><i class="ri-delete-bin-fill"></i></div>
+                    <div class="row-content">
+                        <div class="row-title" style="color:var(--red)">Resetta Tutto</div>
+                        <div class="row-sub">Cancella tutti i dati</div>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:center; color:var(--text-sec); font-size:12px; margin-top:20px;">FinBert PWA v2.0 • Progettato per durare</p>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+    
+    <div class="modal-sheet" id="modalTransaction">
+        <div class="modal-header">
+            <h2>Nuovo Movimento</h2>
+            <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="form-group">
+            <input type="text" id="tTitle" placeholder="Descrizione (es. Spesa, Stipendio)">
+        </div>
+        <div class="form-group">
+            <input type="number" id="tAmount" placeholder="Importo (es. 50.00)">
+        </div>
+        <div class="form-group">
+            <select id="tType">
+                <option value="Uscita">🔴 Uscita</option>
+                <option value="Entrata">🟢 Entrata</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <select id="tAccount">
+                <option value="Banca">🏦 Banca</option>
+                <option value="Contanti">💵 Contanti</option>
+            </select>
+        </div>
+        <button class="action-btn" onclick="saveTransaction()">Salva</button>
+    </div>
+
+    <div class="modal-sheet" id="modalInvestment">
+        <div class="modal-header">
+            <h2>Nuovo Asset</h2>
+            <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
+        </div>
+        <div class="form-group">
+            <input type="text" id="iName" placeholder="Nome (es. Apple, Bitcoin)">
+        </div>
+        <div class="form-group">
+            <input type="text" id="iTicker" placeholder="Ticker (es. AAPL) - Opzionale">
+        </div>
+        <div class="form-group">
+            <input type="number" id="iQty" placeholder="Quantità Posseduta">
+        </div>
+        <div class="form-group">
+            <input type="number" id="iPrice" placeholder="Prezzo Attuale">
+        </div>
+        <button class="action-btn" onclick="saveInvestment()">Salva Asset</button>
+    </div>
+
+    <div class="tab-bar">
+        <button class="tab-btn active" onclick="nav('dashboard', this)">
+            <i class="ri-dashboard-fill"></i><span>Home</span>
+        </button>
+        <button class="tab-btn" onclick="nav('portfolio', this)">
+            <i class="ri-pie-chart-2-fill"></i><span>Portfolio</span>
+        </button>
+        <button class="tab-btn" onclick="nav('wallet', this)">
+            <i class="ri-wallet-3-fill"></i><span>Wallet</span>
+        </button>
+        <button class="tab-btn" onclick="nav('settings', this)">
+            <i class="ri-settings-4-fill"></i><span>Settings</span>
+        </button>
+    </div>
+
+    <script>
+        // --- DATA LAYER ---
+        let db = {
+            transactions: JSON.parse(localStorage.getItem('fb_trans')) || [],
+            investments: JSON.parse(localStorage.getItem('fb_invest')) || []
+        };
+
+        function saveDB() {
+            localStorage.setItem('fb_trans', JSON.stringify(db.transactions));
+            localStorage.setItem('fb_invest', JSON.stringify(db.investments));
+            renderAll();
+        }
+
+        // --- NAVIGATION ---
+        function nav(viewName, btn) {
+            document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+            document.getElementById('view-' + viewName).classList.add('active');
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            if(btn) btn.classList.add('active');
+        }
+
+        // --- RENDER LOGIC ---
+        function fmtMoney(n) { return n.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' }); }
+
+        function renderAll() {
+            // CALCOLI
+            let bank = 0, cash = 0, invest = 0;
+            
+            db.transactions.forEach(t => {
+                if(t.account === 'Banca') bank += (t.type === 'Entrata' ? t.amount : -t.amount);
+                else cash += (t.type === 'Entrata' ? t.amount : -t.amount);
+            });
+            
+            db.investments.forEach(i => invest += (i.qty * i.price));
+
+            // DASHBOARD UPDATE
+            document.getElementById('netWorth').innerText = fmtMoney(bank + cash + invest);
+            document.getElementById('liquidTotal').innerText = fmtMoney(bank + cash);
+            document.getElementById('investTotal').innerText = fmtMoney(invest);
+            document.getElementById('bankRow').innerText = fmtMoney(bank);
+            document.getElementById('cashRow').innerText = fmtMoney(cash);
+
+            // WALLET LIST
+            const tList = document.getElementById('transactionList');
+            if(db.transactions.length === 0) {
+                tList.innerHTML = '<div style="padding:20px; text-align:center; color:#999">Nessun movimento</div>';
+            } else {
+                tList.innerHTML = '';
+                db.transactions.slice().reverse().forEach((t, idx) => {
+                    const icon = t.type === 'Entrata' ? 'ri-arrow-down-circle-fill' : 'ri-arrow-up-circle-fill';
+                    const color = t.type === 'Entrata' ? 'var(--green)' : 'var(--text)'; // Uscite nere stile Apple
+                    tList.innerHTML += `
+                        <div class="list-row">
+                            <div class="row-icon" style="background: ${t.type === 'Entrata' ? 'var(--green)' : '#ff3b30'}">
+                                <i class="${t.type === 'Entrata' ? 'ri-arrow-down-line' : 'ri-arrow-up-line'}"></i>
+                            </div>
+                            <div class="row-content">
+                                <div class="row-title">${t.title}</div>
+                                <div class="row-sub">${t.account} • ${new Date(t.date).toLocaleDateString()}</div>
+                            </div>
+                            <div class="row-amount money" style="color:${t.type === 'Entrata' ? 'var(--green)' : 'inherit'}">
+                                ${t.type === 'Entrata' ? '+' : '-'}${fmtMoney(t.amount)}
+                            </div>
+                            <i class="ri-delete-bin-line" style="margin-left:10px; color:#ccc;" onclick="deleteTrans(${db.transactions.length - 1 - idx})"></i>
+                        </div>
+                    `;
+                });
+            }
+
+            // PORTFOLIO LIST
+            const iList = document.getElementById('investmentList');
+            if(db.investments.length === 0) {
+                iList.innerHTML = '<div style="padding:20px; text-align:center; color:#999">Nessun asset</div>';
+            } else {
+                iList.innerHTML = '';
+                // Sort by value
+                let sortedInv = db.investments.sort((a,b) => (b.qty*b.price) - (a.qty*a.price));
+                let maxVal = sortedInv.length > 0 ? (sortedInv[0].qty * sortedInv[0].price) : 1;
+
+                sortedInv.forEach((i, idx) => {
+                    let val = i.qty * i.price;
+                    let percent = (val / maxVal) * 100;
+                    iList.innerHTML += `
+                        <div class="list-row" style="display:block">
+                            <div style="display:flex; justify-content:space-between; align-items:center;">
+                                <div style="display:flex; align-items:center;">
+                                    <div class="row-icon" style="background:var(--primary); width:32px; height:32px; font-size:16px;">
+                                        ${i.name.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <div class="row-title">${i.name}</div>
+                                        <div class="row-sub">${i.qty} quote • ${fmtMoney(i.price)}</div>
+                                    </div>
+                                </div>
+                                <div style="text-align:right">
+                                    <div class="row-amount money">${fmtMoney(val)}</div>
+                                    <div style="font-size:12px; color:#ccc; cursor:pointer" onclick="deleteInvest(${idx})">Elimina</div>
+                                </div>
+                            </div>
+                            <div class="progress-bar"><div class="progress-fill" style="width:${percent}%"></div></div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        // --- ACTIONS ---
+        function saveTransaction() {
+            const title = document.getElementById('tTitle').value;
+            const amount = parseFloat(document.getElementById('tAmount').value);
+            const type = document.getElementById('tType').value;
+            const account = document.getElementById('tAccount').value;
+
+            if(title && amount) {
+                db.transactions.push({ title, amount, type, account, date: new Date().toISOString() });
+                saveDB();
+                closeModal();
+                // Clear form
+                document.getElementById('tTitle').value = '';
+                document.getElementById('tAmount').value = '';
+            }
+        }
+
+        function saveInvestment() {
+            const name = document.getElementById('iName').value;
+            const qty = parseFloat(document.getElementById('iQty').value);
+            const price = parseFloat(document.getElementById('iPrice').value);
+            
+            if(name && qty) {
+                db.investments.push({ name, qty, price: price || 0 });
+                saveDB();
+                closeModal();
+                document.getElementById('iName').value = '';
+                document.getElementById('iQty').value = '';
+                document.getElementById('iPrice').value = '';
+            }
+        }
+
+        function deleteTrans(realIdx) {
+            if(confirm('Eliminare questo movimento?')) {
+                db.transactions.splice(realIdx, 1);
+                saveDB();
+            }
+        }
+        function deleteInvest(idx) {
+            if(confirm('Eliminare questo asset?')) {
+                db.investments.splice(idx, 1);
+                saveDB();
+            }
+        }
+
+        // --- BACKUP SYSTEM ---
+        function exportData() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
+            const dlAnchorElem = document.createElement('a');
+            dlAnchorElem.setAttribute("href", dataStr);
+            dlAnchorElem.setAttribute("download", "FinBert_Backup_" + new Date().toISOString().slice(0,10) + ".json");
+            dlAnchorElem.click();
+        }
+
+        function importData(input) {
+            const file = input.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const loaded = JSON.parse(e.target.result);
+                    if(loaded.transactions && loaded.investments) {
+                        db = loaded;
+                        saveDB();
+                        alert('Backup ripristinato!');
+                    } else { alert('File non valido'); }
+                } catch(err) { alert('Errore nel file'); }
+            };
+            reader.readAsText(file);
+        }
+
+        function resetAll() {
+            if(confirm('SEI SICURO? Cancellerai tutto per sempre.')) {
+                db = { transactions: [], investments: [] };
+                saveDB();
+            }
+        }
+
+        // --- UI MODALS ---
+        function openModal(type) {
+            document.getElementById('modalOverlay').style.display = 'block';
+            setTimeout(() => document.getElementById('modalOverlay').style.opacity = '1', 10);
+            
+            const sheet = document.getElementById(type === 'transaction' ? 'modalTransaction' : 'modalInvestment');
+            sheet.style.bottom = '0';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').style.opacity = '0';
+            document.querySelectorAll('.modal-sheet').forEach(el => el.style.bottom = '-100%');
+            setTimeout(() => document.getElementById('modalOverlay').style.display = 'none', 300);
+        }
+
+        // INIT
+        renderAll();
+    </script>
+</body>
+</html>
