@@ -16,92 +16,109 @@
         :root {
             --bg: #f2f2f7; --card: #ffffff; --text: #000000; --text-sec: #8e8e93;
             --primary: #007aff; --green: #34c759; --red: #ff3b30; --orange: #ff9500; --purple: #5856D6;
-            --modal-bg: #ffffff; --separator: #c6c6c8;
+            --modal-bg: #ffffff; --separator: #c6c6c8; --input-bg: #f2f2f7;
         }
         @media (prefers-color-scheme: dark) {
-            :root { --bg: #000000; --card: #1c1c1e; --text: #ffffff; --text-sec: #8e8e93; --modal-bg: #1c1c1e; --separator: #38383a; }
+            :root { 
+                --bg: #000000; --card: #1c1c1e; --text: #ffffff; --text-sec: #8e8e93; 
+                --modal-bg: #1c1c1e; --separator: #38383a; --input-bg: #2c2c2e;
+            }
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
             background-color: var(--bg); color: var(--text);
-            margin: 0; padding: 0; padding-bottom: 100px; padding-top: env(safe-area-inset-top);
+            margin: 0; padding: 0; padding-bottom: 110px; padding-top: env(safe-area-inset-top);
             -webkit-tap-highlight-color: transparent; user-select: none;
         }
 
-        /* TIPOGRAFIA E LAYOUT */
-        h1 { margin: 20px; font-size: 34px; font-weight: 700; }
+        /* LAYOUT & CARDS */
+        h1 { margin: 20px 20px 10px 20px; font-size: 34px; font-weight: 700; letter-spacing: -0.5px; }
         h2 { font-size: 20px; font-weight: 600; margin: 0 0 15px 0; }
-        .card { background: var(--card); border-radius: 12px; margin: 20px; overflow: hidden; }
-        .money { font-family: "SF Pro Display", sans-serif; font-weight: 700; font-feature-settings: "tnum"; }
         
-        /* LISTE */
+        .card { background: var(--card); border-radius: 14px; margin: 20px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .money { font-family: "SF Pro Display", sans-serif; font-weight: 700; font-feature-settings: "tnum"; }
+
+        /* LISTE PRO */
         .list-row {
             display: flex; align-items: center; padding: 16px;
-            border-bottom: 0.5px solid var(--separator); cursor: pointer;
+            border-bottom: 0.5px solid var(--separator); cursor: pointer; position: relative;
         }
+        .list-row:active { background-color: rgba(128,128,128,0.1); }
         .list-row:last-child { border-bottom: none; }
+        
         .row-icon {
-            width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 20px; margin-right: 15px; flex-shrink: 0;
+            width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 22px; margin-right: 15px; flex-shrink: 0;
         }
         .row-content { flex: 1; overflow: hidden; }
-        .row-title { font-weight: 600; font-size: 17px; margin-bottom: 3px; }
-        .row-sub { font-size: 13px; color: var(--text-sec); display: flex; align-items: center; gap: 5px; }
-        .cat-tag { background: rgba(128,128,128,0.15); padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+        .row-title { font-weight: 600; font-size: 17px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .row-sub { font-size: 13px; color: var(--text-sec); display: flex; align-items: center; gap: 6px; }
+        .cat-badge { background: rgba(128,128,128,0.15); padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 600; text-transform: uppercase; }
 
-        /* DASHBOARD */
-        .header-dash { padding: 20px; text-align: center; }
-        .big-balance { font-size: 42px; font-weight: 800; margin: 10px 0; }
+        /* DASHBOARD GRID */
+        .header-dash { padding: 10px 20px; }
+        .big-balance { font-size: 40px; font-weight: 800; margin: 5px 0 20px 0; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 0 20px; }
-        .stat-box { background: var(--card); padding: 15px; border-radius: 12px; }
-        .stat-label { font-size: 12px; color: var(--text-sec); text-transform: uppercase; font-weight: 600; }
+        .stat-box { background: var(--card); padding: 15px; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .stat-label { font-size: 11px; color: var(--text-sec); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; }
         .stat-val { font-size: 18px; font-weight: 700; margin-top: 5px; }
 
-        /* MODALI */
+        /* MODALI ANIMATI (SHEETS) */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5);
-            z-index: 200; display: none; opacity: 0; transition: opacity 0.3s;
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4);
+            z-index: 500; display: none; opacity: 0; transition: opacity 0.3s; backdrop-filter: blur(2px);
         }
         .modal-sheet {
             position: fixed; bottom: -100%; left: 0; right: 0; background: var(--modal-bg);
-            border-radius: 20px 20px 0 0; padding: 20px; z-index: 201;
-            transition: bottom 0.3s ease-out; max-height: 90vh; overflow-y: auto;
+            border-radius: 24px 24px 0 0; padding: 25px; z-index: 501;
+            transition: bottom 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+            max-height: 92vh; overflow-y: auto; padding-bottom: 50px;
+            box-shadow: 0 -5px 30px rgba(0,0,0,0.2);
         }
-        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-        
+        .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .close-btn { background: rgba(128,128,128,0.15); color: var(--text-sec); border: none; width: 30px; height: 30px; border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+
         /* FORM */
+        .form-group { margin-bottom: 15px; }
+        label { font-size: 12px; font-weight: 600; color: var(--text-sec); margin-left: 4px; margin-bottom: 6px; display: block; }
         input, select {
-            width: 100%; padding: 16px; margin-bottom: 12px; background: var(--bg);
-            border: none; border-radius: 10px; font-size: 17px; color: var(--text); box-sizing: border-box;
-            -webkit-appearance: none; /* Fix per iOS */
+            width: 100%; padding: 16px; background: var(--input-bg);
+            border: none; border-radius: 12px; font-size: 17px; color: var(--text);
+            box-sizing: border-box; outline: none; -webkit-appearance: none;
         }
-        .btn-primary { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 17px; font-weight: 700; margin-top: 10px; }
-        .btn-danger { width: 100%; padding: 16px; background: transparent; color: var(--red); border: none; font-size: 16px; margin-top: 5px; }
+        .btn-primary { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 14px; font-size: 17px; font-weight: 700; margin-top: 15px; }
+        .btn-danger { width: 100%; padding: 16px; background: transparent; color: var(--red); border: none; font-size: 16px; margin-top: 5px; font-weight: 500; }
+
+        /* TAB BAR GLASS */
+        .tab-bar {
+            position: fixed; bottom: 0; width: 100%; height: 85px; 
+            background: rgba(255,255,255,0.85); backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-top: 0.5px solid var(--separator); display: flex; justify-content: space-around;
+            padding-top: 10px; z-index: 100; box-sizing: border-box;
+        }
+        @media (prefers-color-scheme: dark) { .tab-bar { background: rgba(28,28,30,0.85); } }
+
+        .tab-btn { background: none; border: none; color: #999; display: flex; flex-direction: column; align-items: center; font-size: 10px; width: 60px; font-weight: 500; gap: 4px; }
+        .tab-btn i { font-size: 26px; }
+        .tab-btn.active { color: var(--primary); }
+
+        /* FAB */
         .fab {
             position: fixed; bottom: 100px; right: 20px; width: 56px; height: 56px;
             background: var(--primary); color: white; border-radius: 50%;
             display: flex; align-items: center; justify-content: center; font-size: 28px;
-            box-shadow: 0 4px 15px rgba(0,122,255,0.4); z-index: 100; border: none;
+            box-shadow: 0 4px 15px rgba(0,122,255,0.4); z-index: 90; border: none;
+            transition: transform 0.1s;
         }
+        .fab:active { transform: scale(0.9); }
 
-        /* TAB BAR */
-        .tab-bar {
-            position: fixed; bottom: 0; width: 100%; height: 85px; background: var(--card);
-            border-top: 0.5px solid var(--separator); display: flex; justify-content: space-around;
-            padding-top: 10px; z-index: 150; box-sizing: border-box;
-        }
-        .tab-btn { background: none; border: none; color: #999; display: flex; flex-direction: column; align-items: center; font-size: 10px; width: 60px; }
-        .tab-btn i { font-size: 24px; margin-bottom: 3px; }
-        .tab-btn.active { color: var(--primary); }
-
-        /* VIEWS */
-        .view { display: none; padding-bottom: 120px; }
-        .view.active { display: block; animation: fadeIn 0.2s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* CHARTS */
-        .chart-wrap { height: 250px; position: relative; display: flex; justify-content: center; }
+        /* VIEWS & CHARTS */
+        .view { display: none; padding-bottom: 20px; }
+        .view.active { display: block; animation: fadeIn 0.25s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .chart-wrap { height: 260px; position: relative; display: flex; justify-content: center; }
     </style>
 </head>
 <body>
@@ -113,16 +130,18 @@
         </div>
         <div class="grid-2">
             <div class="stat-box">
+                <div class="row-icon" style="background:var(--primary); width:32px; height:32px; font-size:16px; margin-bottom:10px;"><i class="ri-bank-fill"></i></div>
                 <div class="stat-label">Liquidità</div>
                 <div class="stat-val money" id="dashLiquid">0,00 €</div>
             </div>
             <div class="stat-box">
+                <div class="row-icon" style="background:var(--green); width:32px; height:32px; font-size:16px; margin-bottom:10px;"><i class="ri-line-chart-fill"></i></div>
                 <div class="stat-label">Investimenti</div>
                 <div class="stat-val money" id="dashInvest">0,00 €</div>
             </div>
         </div>
         
-        <h2 style="margin: 30px 20px 10px 20px;">Bilancio Rapido</h2>
+        <h2 style="margin: 30px 20px 15px 20px;">Bilancio Rapido</h2>
         <div class="card">
             <div class="list-row">
                 <div class="row-icon" style="background: #5856D6"><i class="ri-bank-fill"></i></div>
@@ -165,10 +184,10 @@
         <h1>Impostazioni</h1>
         <div class="card">
             <div class="list-row" onclick="openModal('cats')">
-                <div class="row-icon" style="background: var(--purple)"><i class="ri-list-settings-fill"></i></div>
+                <div class="row-icon" style="background: var(--purple)"><i class="ri-price-tag-3-fill"></i></div>
                 <div class="row-content">
                     <div class="row-title">Gestisci Categorie</div>
-                    <div class="row-sub">Aggiungi o rimuovi</div>
+                    <div class="row-sub">Personalizza</div>
                 </div>
                 <i class="ri-arrow-right-s-line" style="color:#ccc"></i>
             </div>
@@ -176,7 +195,7 @@
                 <div class="row-icon" style="background: var(--primary)"><i class="ri-download-cloud-2-fill"></i></div>
                 <div class="row-content">
                     <div class="row-title">Esporta Backup</div>
-                    <div class="row-sub">Salva JSON</div>
+                    <div class="row-sub">Salva file JSON</div>
                 </div>
             </div>
             <div class="list-row" onclick="document.getElementById('fileImport').click()">
@@ -194,50 +213,79 @@
             </div>
         </div>
         <input type="file" id="fileImport" style="display:none" onchange="importData(this)">
+        <p style="text-align:center; color:var(--text-sec); font-size:12px; margin-top:20px;">FinBert Pro v3.0</p>
     </div>
 
     <div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
 
     <div class="modal-sheet" id="modal-trans">
         <div class="modal-header">
-            <h2 id="transTitle">Nuova Transazione</h2>
-            <i class="ri-close-circle-fill" style="font-size:24px; color:#ccc" onclick="closeModal()"></i>
+            <h2 id="transTitle" style="margin:0">Movimento</h2>
+            <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
         </div>
         <input type="hidden" id="t-index">
-        <input type="text" id="t-desc" placeholder="Descrizione (es. Pizza)">
-        <input type="number" id="t-amount" placeholder="Importo" step="0.01">
-        <select id="t-cat"></select> <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px">
-            <select id="t-type"><option value="Uscita">🔴 Uscita</option><option value="Entrata">🟢 Entrata</option></select>
-            <select id="t-acc"><option value="Banca">🏦 Banca</option><option value="Contanti">💵 Contanti</option></select>
+        <div class="form-group">
+            <label>Descrizione</label>
+            <input type="text" id="t-desc" placeholder="Es. Spesa al super">
         </div>
-        <input type="date" id="t-date">
+        <div class="form-group">
+            <label>Importo</label>
+            <input type="number" id="t-amount" placeholder="0.00" step="0.01">
+        </div>
+        <div class="form-group">
+            <label>Categoria</label>
+            <select id="t-cat"></select>
+        </div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:15px;">
+            <div>
+                <label>Tipo</label>
+                <select id="t-type"><option value="Uscita">🔴 Uscita</option><option value="Entrata">🟢 Entrata</option></select>
+            </div>
+            <div>
+                <label>Conto</label>
+                <select id="t-acc"><option value="Banca">🏦 Banca</option><option value="Contanti">💵 Contanti</option></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Data</label>
+            <input type="date" id="t-date">
+        </div>
         <button class="btn-primary" onclick="saveTrans()">Salva</button>
-        <button class="btn-danger" id="btn-del-trans" style="display:none" onclick="delTrans()">Elimina</button>
+        <button class="btn-danger" id="btn-del-trans" style="display:none" onclick="delTrans()">Elimina Movimento</button>
     </div>
 
     <div class="modal-sheet" id="modal-asset">
         <div class="modal-header">
-            <h2 id="assetTitle">Nuovo Asset</h2>
-            <i class="ri-close-circle-fill" style="font-size:24px; color:#ccc" onclick="closeModal()"></i>
+            <h2 id="assetTitle" style="margin:0">Asset</h2>
+            <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
         </div>
         <input type="hidden" id="a-index">
-        <input type="text" id="a-name" placeholder="Nome (es. Bitcoin)">
-        <input type="number" id="a-qty" placeholder="Quantità">
-        <input type="number" id="a-price" placeholder="Prezzo Attuale">
+        <div class="form-group">
+            <label>Nome Asset</label>
+            <input type="text" id="a-name" placeholder="Es. Bitcoin, Apple">
+        </div>
+        <div class="form-group">
+            <label>Quantità</label>
+            <input type="number" id="a-qty" placeholder="0.00">
+        </div>
+        <div class="form-group">
+            <label>Prezzo Attuale (Unitario)</label>
+            <input type="number" id="a-price" placeholder="0.00">
+        </div>
         <button class="btn-primary" onclick="saveAsset()">Salva</button>
-        <button class="btn-danger" id="btn-del-asset" style="display:none" onclick="delAsset()">Elimina</button>
+        <button class="btn-danger" id="btn-del-asset" style="display:none" onclick="delAsset()">Elimina Asset</button>
     </div>
 
     <div class="modal-sheet" id="modal-cats">
         <div class="modal-header">
-            <h2>Categorie</h2>
-            <i class="ri-close-circle-fill" style="font-size:24px; color:#ccc" onclick="closeModal()"></i>
+            <h2 style="margin:0">Gestione Categorie</h2>
+            <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
         </div>
-        <div style="display:flex; gap:10px; margin-bottom:15px">
-            <input type="text" id="new-cat" placeholder="Nuova Categoria..." style="margin:0">
-            <button class="btn-primary" style="width:auto; margin:0" onclick="addCat()">+</button>
+        <div style="display:flex; gap:10px; margin-bottom:20px">
+            <input type="text" id="new-cat" placeholder="Nuova categoria..." style="margin:0">
+            <button class="btn-primary" style="width:auto; margin:0; padding:0 20px;" onclick="addCat()">Aggiungi</button>
         </div>
-        <div id="cat-list" style="display:flex; flex-direction:column; gap:10px"></div>
+        <div id="cat-list" style="display:flex; flex-direction:column; gap:10px; max-height:400px; overflow-y:auto;"></div>
     </div>
 
     <div class="tab-bar">
@@ -249,13 +297,13 @@
     </div>
 
     <script>
-        // --- 1. DATABASE INIT ---
+        // --- 1. CORE DATABASE ---
         let db = {
             trans: JSON.parse(localStorage.getItem('fb_trans')) || [],
             assets: JSON.parse(localStorage.getItem('fb_assets')) || [],
             cats: JSON.parse(localStorage.getItem('fb_cats')) || ["Spesa", "Casa", "Svago", "Stipendio", "Altro"]
         };
-        let chartInstances = {};
+        let charts = { exp: null, ass: null };
 
         function save() {
             localStorage.setItem('fb_trans', JSON.stringify(db.trans));
@@ -264,20 +312,21 @@
             render();
         }
 
-        // --- 2. NAVIGATION ---
+        function fmt(n) { return n.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' }); }
+
+        // --- 2. NAVIGAZIONE ---
         function go(viewId, btn) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             document.getElementById('view-' + viewId).classList.add('active');
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
-            if(viewId === 'stats') drawCharts();
+            
+            if(viewId === 'stats') setTimeout(renderCharts, 100); // Ritardo per permettere al canvas di apparire
         }
 
-        function fmt(n) { return n.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' }); }
-
-        // --- 3. RENDER ENGINE ---
+        // --- 3. RENDERING ---
         function render() {
-            // CALCOLI
+            // Totali
             let bank = 0, cash = 0, invest = 0;
             db.trans.forEach(t => {
                 let val = t.type === 'Entrata' ? t.amount : -t.amount;
@@ -285,20 +334,19 @@
             });
             db.assets.forEach(a => invest += (a.qty * a.price));
 
-            // DASHBOARD HTML
+            // Aggiorna Home
             document.getElementById('dashTotal').innerText = fmt(bank + cash + invest);
             document.getElementById('dashLiquid').innerText = fmt(bank + cash);
             document.getElementById('dashInvest').innerText = fmt(invest);
             document.getElementById('dashBank').innerText = fmt(bank);
             document.getElementById('dashCash').innerText = fmt(cash);
 
-            // WALLET HTML
+            // Lista Wallet
             const tList = document.getElementById('transList');
-            tList.innerHTML = db.trans.length ? '' : '<p style="text-align:center; padding:20px; color:#999">Nessun movimento</p>';
+            tList.innerHTML = db.trans.length ? '' : '<p style="text-align:center; padding:30px; color:#999">Nessun movimento</p>';
             
-            // Ordina per data (più recente in alto) e mostra
             db.trans.slice().reverse().forEach((t, revIdx) => {
-                const realIdx = db.trans.length - 1 - revIdx; // Indice vero nell'array
+                const realIdx = db.trans.length - 1 - revIdx;
                 const isEnt = t.type === 'Entrata';
                 tList.innerHTML += `
                 <div class="list-row" onclick="editTrans(${realIdx})">
@@ -308,7 +356,7 @@
                     <div class="row-content">
                         <div class="row-title">${t.desc}</div>
                         <div class="row-sub">
-                            <span class="cat-tag">${t.cat}</span>
+                            <span class="cat-badge">${t.cat || 'Altro'}</span>
                             <span style="margin-left:6px">${t.acc} • ${new Date(t.date).toLocaleDateString()}</span>
                         </div>
                     </div>
@@ -318,13 +366,17 @@
                 </div>`;
             });
 
-            // ASSET HTML
+            // Lista Assets
             const aList = document.getElementById('assetList');
-            aList.innerHTML = db.assets.length ? '' : '<p style="text-align:center; padding:20px; color:#999">Nessun asset</p>';
-            db.assets.forEach((a, idx) => {
+            aList.innerHTML = db.assets.length ? '' : '<p style="text-align:center; padding:30px; color:#999">Nessun asset</p>';
+            
+            // Ordina per valore totale decrescente
+            const sortedAssets = db.assets.map((a, i) => ({...a, idx: i})).sort((a,b) => (b.qty*b.price) - (a.qty*a.price));
+
+            sortedAssets.forEach(a => {
                 aList.innerHTML += `
-                <div class="list-row" onclick="editAsset(${idx})">
-                    <div class="row-icon" style="background:var(--primary)">${a.name.charAt(0).toUpperCase()}</div>
+                <div class="list-row" onclick="editAsset(${a.idx})">
+                    <div class="row-icon" style="background:var(--primary); font-size:16px;">${a.name.substr(0,2).toUpperCase()}</div>
                     <div class="row-content">
                         <div class="row-title">${a.name}</div>
                         <div class="row-sub">${a.qty} quote • ${fmt(a.price)}</div>
@@ -334,20 +386,20 @@
             });
         }
 
-        // --- 4. CRUD TRANSAZIONI ---
+        // --- 4. GESTIONE MODALI ---
         function openModal(type) {
             document.getElementById('overlay').style.display = 'block';
             setTimeout(() => document.getElementById('overlay').style.opacity = '1', 10);
             
-            // Popola Select Categorie ogni volta che apri
             if(type === 'trans') {
+                // Popola Categorie
                 const sel = document.getElementById('t-cat');
                 sel.innerHTML = '';
-                db.cats.forEach(c => { sel.innerHTML += `<option value="${c}">${c}</option>` });
+                db.cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
                 
-                // Reset Form per Nuovo inserimento
+                // Se è un NUOVO inserimento (non modifica)
                 if(document.getElementById('t-index').value === '') {
-                    document.getElementById('transTitle').innerText = 'Nuova Transazione';
+                    document.getElementById('transTitle').innerText = 'Nuovo Movimento';
                     document.getElementById('t-desc').value = '';
                     document.getElementById('t-amount').value = '';
                     document.getElementById('t-date').valueAsDate = new Date();
@@ -360,7 +412,7 @@
                 document.getElementById('a-price').value = '';
                 document.getElementById('btn-del-asset').style.display = 'none';
             } else if (type === 'cats') {
-                renderCatsModal();
+                renderCats();
             }
 
             document.getElementById('modal-' + type).style.bottom = '0';
@@ -369,24 +421,27 @@
         function closeModal() {
             document.getElementById('overlay').style.opacity = '0';
             document.querySelectorAll('.modal-sheet').forEach(el => el.style.bottom = '-100%');
-            setTimeout(() => document.getElementById('overlay').style.display = 'none', 300);
-            // Reset indici nascosti
-            document.getElementById('t-index').value = '';
-            document.getElementById('a-index').value = '';
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('t-index').value = ''; // Reset index
+                document.getElementById('a-index').value = '';
+            }, 300);
         }
 
+        // --- 5. LOGICA TRANSAZIONI ---
         function editTrans(idx) {
             const t = db.trans[idx];
             document.getElementById('t-index').value = idx;
             document.getElementById('transTitle').innerText = 'Modifica';
             document.getElementById('t-desc').value = t.desc;
             document.getElementById('t-amount').value = t.amount;
-            document.getElementById('t-cat').value = t.cat; // Funzionerà perché abbiamo le categorie aggiornate
             document.getElementById('t-type').value = t.type;
             document.getElementById('t-acc').value = t.acc;
             document.getElementById('t-date').value = t.date.split('T')[0];
             document.getElementById('btn-del-trans').style.display = 'block';
             openModal('trans');
+            // Imposta categoria dopo aver aperto
+            document.getElementById('t-cat').value = t.cat;
         }
 
         function saveTrans() {
@@ -399,7 +454,6 @@
                 acc: document.getElementById('t-acc').value,
                 date: document.getElementById('t-date').valueAsDate ? document.getElementById('t-date').valueAsDate.toISOString() : new Date().toISOString()
             };
-
             if(idx !== '') db.trans[idx] = obj; else db.trans.push(obj);
             save(); closeModal();
         }
@@ -409,11 +463,11 @@
             if(confirm('Eliminare?')) { db.trans.splice(idx, 1); save(); closeModal(); }
         }
 
-        // --- 5. CRUD ASSET ---
+        // --- 6. LOGICA ASSET ---
         function editAsset(idx) {
             const a = db.assets[idx];
             document.getElementById('a-index').value = idx;
-            document.getElementById('assetTitle').innerText = 'Modifica Asset';
+            document.getElementById('assetTitle').innerText = 'Modifica';
             document.getElementById('a-name').value = a.name;
             document.getElementById('a-qty').value = a.qty;
             document.getElementById('a-price').value = a.price;
@@ -437,56 +491,72 @@
             if(confirm('Eliminare?')) { db.assets.splice(idx, 1); save(); closeModal(); }
         }
 
-        // --- 6. CATEGORIE ---
-        function renderCatsModal() {
+        // --- 7. LOGICA CATEGORIE ---
+        function renderCats() {
             const list = document.getElementById('cat-list');
             list.innerHTML = '';
             db.cats.forEach((c, i) => {
                 list.innerHTML += `
-                <div style="background:#f2f2f7; padding:10px; border-radius:8px; display:flex; justify-content:space-between;">
-                    <span>${c}</span>
-                    <i class="ri-delete-bin-line" style="color:red" onclick="delCat(${i})"></i>
+                <div style="background:var(--input-bg); padding:12px; border-radius:10px; display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-weight:600">${c}</span>
+                    <i class="ri-delete-bin-line" style="color:var(--red); font-size:20px;" onclick="delCat(${i})"></i>
                 </div>`;
             });
         }
         function addCat() {
             const val = document.getElementById('new-cat').value;
-            if(val && !db.cats.includes(val)) { db.cats.push(val); document.getElementById('new-cat').value = ''; save(); renderCatsModal(); }
+            if(val && !db.cats.includes(val)) { db.cats.push(val); document.getElementById('new-cat').value = ''; save(); renderCats(); }
         }
         function delCat(i) {
-            if(confirm('Eliminare categoria?')) { db.cats.splice(i, 1); save(); renderCatsModal(); }
+            if(confirm('Eliminare categoria?')) { db.cats.splice(i, 1); save(); renderCats(); }
         }
 
-        // --- 7. CHARTS & BACKUP ---
-        function drawCharts() {
-            const ctx1 = document.getElementById('chartExpense');
-            const ctx2 = document.getElementById('chartAsset');
+        // --- 8. GRAFICI ---
+        function renderCharts() {
+            const ctxExp = document.getElementById('chartExpense');
+            const ctxAss = document.getElementById('chartAsset');
             
-            // Distruggi vecchi grafici se esistono
-            if(chartInstances.exp) chartInstances.exp.destroy();
-            if(chartInstances.ass) chartInstances.ass.destroy();
+            if(charts.exp) charts.exp.destroy();
+            if(charts.ass) charts.ass.destroy();
 
-            // Dati Spese
-            let expData = {};
-            db.trans.filter(t => t.type === 'Uscita').forEach(t => { expData[t.cat] = (expData[t.cat]||0) + t.amount; });
+            // Dati Spese (solo Uscite)
+            let expMap = {};
+            db.trans.filter(t => t.type === 'Uscita').forEach(t => expMap[t.cat] = (expMap[t.cat]||0) + t.amount);
             
             // Dati Asset
-            let assData = {};
-            db.assets.forEach(a => { assData[a.name] = (a.qty * a.price); });
+            let assMap = {};
+            db.assets.forEach(a => assMap[a.name] = (a.qty * a.price));
 
-            chartInstances.exp = new Chart(ctx1, {
+            const colors = ['#007aff', '#34c759', '#ff9500', '#5856D6', '#ff3b30', '#8e8e93'];
+
+            charts.exp = new Chart(ctxExp, {
                 type: 'doughnut',
-                data: { labels: Object.keys(expData), datasets: [{ data: Object.values(expData), backgroundColor: ['#ff3b30','#ff9500','#5856D6','#007aff','#34c759'] }] },
-                options: { maintainAspectRatio:false, plugins:{legend:{position:'right'}} }
+                data: { 
+                    labels: Object.keys(expMap).length ? Object.keys(expMap) : ['Nessun dato'], 
+                    datasets: [{ 
+                        data: Object.keys(expMap).length ? Object.values(expMap) : [1], 
+                        backgroundColor: Object.keys(expMap).length ? colors : ['#eee'],
+                        borderWidth: 0 
+                    }] 
+                },
+                options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'right', labels:{boxWidth:12, font:{size:11}}}} }
             });
 
-            chartInstances.ass = new Chart(ctx2, {
-                type: 'pie',
-                data: { labels: Object.keys(assData), datasets: [{ data: Object.values(assData), backgroundColor: ['#007aff','#34c759','#ff9500','#5856D6'] }] },
-                options: { maintainAspectRatio:false, plugins:{legend:{position:'right'}} }
+            charts.ass = new Chart(ctxAss, {
+                type: 'doughnut',
+                data: { 
+                    labels: Object.keys(assMap).length ? Object.keys(assMap) : ['Nessun dato'], 
+                    datasets: [{ 
+                        data: Object.keys(assMap).length ? Object.values(assMap) : [1], 
+                        backgroundColor: Object.keys(assMap).length ? colors : ['#eee'],
+                        borderWidth: 0 
+                    }] 
+                },
+                options: { responsive:true, maintainAspectRatio:false, plugins:{legend:{position:'right', labels:{boxWidth:12, font:{size:11}}}} }
             });
         }
 
+        // --- 9. BACKUP ---
         function exportData() {
             const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
             const a = document.createElement('a');
@@ -499,13 +569,19 @@
             reader.onload = (e) => {
                 try {
                     const loaded = JSON.parse(e.target.result);
-                    if(loaded.trans && loaded.assets) { db = loaded; save(); alert('Ripristinato!'); }
-                } catch(err) { alert('Errore File'); }
+                    if(loaded.trans && loaded.assets) { db = loaded; save(); alert('Backup Ripristinato!'); }
+                    else alert('File non valido');
+                } catch(err) { alert('Errore lettura file'); }
             };
             reader.readAsText(input.files[0]);
         }
 
-        function resetAll() { if(confirm('RESET TOTALE?')) { db={trans:[],assets:[],cats:["Spesa"]}; save(); } }
+        function resetAll() {
+            if(confirm('⚠ ATTENZIONE: Cancellerai tutti i dati per sempre. Continuare?')) {
+                db = { trans:[], assets:[], cats:["Spesa", "Casa", "Svago", "Stipendio", "Altro"] };
+                save();
+            }
+        }
 
         // AVVIO
         render();
