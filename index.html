@@ -62,64 +62,38 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .wrap{
-      max-width: var(--content);
-      margin: 0 auto;
-      padding: 18px 14px 0;
-    }
+    .wrap{ max-width: var(--content); margin: 0 auto; padding: 18px 14px 0; }
 
     .topbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 12px;
+      display:flex; justify-content:space-between; align-items:center; gap: 12px;
       margin-bottom: 12px;
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      user-select:none;
-    }
+    .brand{ display:flex; align-items:center; gap: 10px; user-select:none; }
 
     .logo{
-      width: 40px; height: 40px;
-      border-radius: 14px;
+      width: 40px; height: 40px; border-radius: 14px;
       background: linear-gradient(135deg, rgba(76,125,255,0.95), rgba(167,139,250,0.9));
       box-shadow: var(--shadow2);
-      display:flex; align-items:center; justify-content:center;
-      color: #fff;
+      display:flex; align-items:center; justify-content:center; color: #fff;
     }
 
-    .brand h1{
-      margin:0;
-      font-size: 15px;
-      letter-spacing: 0.2px;
-    }
-    .brand p{
-      margin: 2px 0 0;
-      font-size: 12px;
-      color: var(--text3);
-    }
+    .brand h1{ margin:0; font-size: 15px; letter-spacing: 0.2px; }
+    .brand p{ margin: 2px 0 0; font-size: 12px; color: var(--text3); }
 
     .iconBtn{
-      width: 42px; height: 42px;
-      border-radius: 14px;
+      width: 42px; height: 42px; border-radius: 14px;
       border: 1px solid var(--stroke);
       background: var(--card2);
       color: var(--text);
       box-shadow: var(--shadow2);
       display:flex; align-items:center; justify-content:center;
+      cursor:pointer;
     }
-    .iconBtn:focus-visible{ outline: 3px solid rgba(76,125,255,0.45); outline-offset: 2px; }
 
     .view{ display:none; }
     .view.active{ display:block; animation: fadeUp .16s ease-out; }
-    @keyframes fadeUp{
-      from{ opacity:0; transform: translateY(6px); }
-      to{ opacity:1; transform: translateY(0); }
-    }
+    @keyframes fadeUp{ from{opacity:0; transform: translateY(6px);} to{opacity:1; transform: translateY(0);} }
 
     .card{
       background: var(--card);
@@ -129,21 +103,13 @@
       backdrop-filter: blur(10px);
       overflow:hidden;
     }
-
     .pad{ padding: 16px; }
 
-    .money{
-      font-variant-numeric: tabular-nums;
-      font-weight: 800;
-      letter-spacing: -0.2px;
-    }
+    .money{ font-variant-numeric: tabular-nums; font-weight: 800; letter-spacing: -0.2px; }
 
     .pill{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 7px 10px; border-radius: 999px;
       border: 1px solid var(--stroke);
       background: var(--card2);
       color: var(--text2);
@@ -151,18 +117,9 @@
     }
     .pill i{ color: var(--primary); font-size: 16px; }
 
-    .heroBalance{
-      font-size: 44px;
-      line-height: 1.05;
-      margin: 8px 0 0;
-    }
+    .heroBalance{ font-size: 44px; line-height: 1.05; margin: 8px 0 0; }
 
-    .grid2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 14px;
-    }
+    .grid2{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px; }
 
     .stat{
       border-radius: var(--radiusSm);
@@ -170,38 +127,19 @@
       background: var(--card2);
       padding: 14px;
     }
-    .stat .k{
-      font-size: 12px;
-      color: var(--text3);
-      text-transform: uppercase;
-      letter-spacing: .7px;
-    }
-    .stat .v{
-      margin-top: 6px;
-      font-size: 18px;
-    }
+    .stat .k{ font-size: 12px; color: var(--text3); text-transform: uppercase; letter-spacing: .7px; }
+    .stat .v{ margin-top: 6px; font-size: 18px; }
 
     .sectionHead{
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap: 10px;
+      display:flex; align-items:flex-end; justify-content:space-between; gap: 10px;
       margin: 16px 2px 10px;
     }
-    .sectionHead h2{
-      margin:0;
-      font-size: 13px;
-      letter-spacing: 0.6px;
-      text-transform: uppercase;
-      color: var(--text2);
-    }
+    .sectionHead h2{ margin:0; font-size: 13px; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text2); }
     .hint{ font-size: 12px; color: var(--text3); }
 
     .list{ display:flex; flex-direction:column; }
     .row{
-      display:flex;
-      align-items:center;
-      gap: 12px;
+      display:flex; align-items:center; gap: 12px;
       padding: 14px;
       border-top: 1px solid var(--stroke);
       cursor:pointer;
@@ -211,35 +149,23 @@
     .row:hover{ background: rgba(255,255,255,0.04); }
 
     .ric{
-      width: 42px; height: 42px;
-      border-radius: 14px;
+      width: 42px; height: 42px; border-radius: 14px;
       display:flex; align-items:center; justify-content:center;
-      color:white;
-      flex: 0 0 auto;
-      box-shadow: var(--shadow2);
+      color:white; flex: 0 0 auto; box-shadow: var(--shadow2);
     }
     .ric i{ font-size: 20px; }
 
     .rmain{ flex: 1; min-width: 0; }
     .rtitle{
-      margin:0 0 3px;
-      font-weight: 700;
-      font-size: 15px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      margin:0 0 3px; font-weight: 700; font-size: 15px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
     }
     .rsub{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      align-items:center;
-      font-size: 12px;
-      color: var(--text2);
+      display:flex; flex-wrap:wrap; gap: 8px; align-items:center;
+      font-size: 12px; color: var(--text2);
     }
     .badge{
-      padding: 2px 8px;
-      border-radius: 999px;
+      padding: 2px 8px; border-radius: 999px;
       border: 1px solid var(--stroke);
       background: var(--card2);
       font-weight: 650;
@@ -247,18 +173,8 @@
       color: var(--text2);
     }
 
-    .rright{
-      text-align:right;
-      min-width: 96px;
-      flex: 0 0 auto;
-    }
-
-    .empty{
-      padding: 18px;
-      text-align:center;
-      color: var(--text3);
-      font-size: 13px;
-    }
+    .rright{ text-align:right; min-width: 110px; flex: 0 0 auto; }
+    .empty{ padding: 18px; text-align:center; color: var(--text3); font-size: 13px; }
 
     .chartWrap{
       height: 280px;
@@ -279,36 +195,27 @@
       color: #fff;
       box-shadow: 0 18px 40px rgba(76,125,255,0.30);
       display:none;
-      align-items:center;
-      justify-content:center;
+      align-items:center; justify-content:center;
       z-index: 50;
+      cursor:pointer;
     }
     .fab i{ font-size: 22px; }
 
     /* Tab bar */
     .tabbar{
-      position: fixed;
-      left: 0; right: 0; bottom: 0;
+      position: fixed; left: 0; right: 0; bottom: 0;
       height: calc(76px + var(--safeBot));
       padding: 10px 12px calc(10px + var(--safeBot));
-      display:flex;
-      justify-content:center;
+      display:flex; justify-content:center;
       background: linear-gradient(180deg, rgba(20,24,35,0.30), rgba(20,24,35,0.85));
       backdrop-filter: blur(12px);
       border-top: 1px solid var(--stroke);
       z-index: 100;
     }
     @media (prefers-color-scheme: light){
-      .tabbar{
-        background: linear-gradient(180deg, rgba(255,255,255,0.40), rgba(255,255,255,0.90));
-      }
+      .tabbar{ background: linear-gradient(180deg, rgba(255,255,255,0.40), rgba(255,255,255,0.90)); }
     }
-    .tabs{
-      width: 100%;
-      max-width: var(--content);
-      display:flex;
-      gap: 8px;
-    }
+    .tabs{ width: 100%; max-width: var(--content); display:flex; gap: 8px; }
     .tab{
       flex:1;
       border: 1px solid transparent;
@@ -316,11 +223,9 @@
       color: var(--text3);
       border-radius: 16px;
       padding: 10px 8px;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap: 4px;
+      display:flex; flex-direction:column; align-items:center; gap: 4px;
       transition: .15s ease;
+      cursor:pointer;
     }
     .tab i{ font-size: 20px; }
     .tab span{ font-size: 11px; font-weight: 750; }
@@ -333,26 +238,20 @@
 
     /* Modal */
     .overlay{
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: rgba(0,0,0,0.55);
       opacity: 0;
       pointer-events:none;
       transition: opacity .16s ease;
       z-index: 200;
     }
-    .overlay.open{
-      opacity: 1;
-      pointer-events:auto;
-    }
+    .overlay.open{ opacity: 1; pointer-events:auto; }
 
     .sheet{
-      position: fixed;
-      left: 0; right: 0;
+      position: fixed; left: 0; right: 0;
       bottom: -120%;
       padding: 0 12px calc(12px + var(--safeBot));
-      display:flex;
-      justify-content:center;
+      display:flex; justify-content:center;
       z-index: 201;
       transition: bottom .20s ease;
     }
@@ -369,18 +268,11 @@
       backdrop-filter: blur(14px);
     }
     .sheetHead{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap: 10px;
+      display:flex; justify-content:space-between; align-items:center; gap: 10px;
       padding: 14px 16px;
       border-bottom: 1px solid var(--stroke);
     }
-    .sheetHead h3{
-      margin:0;
-      font-size: 15px;
-      letter-spacing: 0.2px;
-    }
+    .sheetHead h3{ margin:0; font-size: 15px; letter-spacing: 0.2px; }
     .sheetBody{ padding: 14px 16px 16px; }
 
     .field{ display:flex; flex-direction:column; gap: 6px; margin-bottom: 12px; }
@@ -400,11 +292,7 @@
       box-shadow: 0 0 0 4px rgba(76,125,255,0.18);
     }
 
-    .row2{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
     .btn{
       width: 100%;
@@ -414,6 +302,7 @@
       font-weight: 800;
       background: transparent;
       color: var(--text);
+      cursor:pointer;
     }
     .btn.primary{
       border-color: rgba(76,125,255,0.55);
@@ -421,15 +310,10 @@
       color: #fff;
       box-shadow: 0 16px 38px rgba(76,125,255,0.22);
     }
-    .btn.danger{
-      border-color: rgba(255,77,77,0.55);
-      color: rgba(255,77,77,0.95);
-      background: transparent;
-    }
-    .btn.ghost{
-      background: transparent;
-      color: var(--text2);
-    }
+    .btn.danger{ border-color: rgba(255,77,77,0.55); color: rgba(255,77,77,0.95); }
+    .btn.ghost{ color: var(--text2); }
+
+    .miniNote{ font-size: 12px; color: var(--text3); margin: 6px 0 0; }
 
     .toast{
       position: fixed;
@@ -452,10 +336,42 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .toast.show{
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Categories UI inside modal */
+    .catBlock{
+      border-top: 1px solid var(--stroke);
+      padding: 12px 0;
     }
+    .catBlock:first-child{ border-top:none; padding-top:0; }
+    .catTop{
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+    }
+    .catName{
+      font-weight: 800; letter-spacing: -0.1px;
+    }
+    .subList{
+      margin-top: 10px;
+      display:flex; flex-direction:column; gap: 8px;
+    }
+    .subRow{
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: var(--card2);
+    }
+    .subRow span{ font-size: 13px; color: var(--text2); }
+    .smallBtn{
+      width: 40px; height: 40px;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: transparent;
+      color: var(--text);
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .smallBtn.danger i{ color: rgba(255,77,77,0.95); }
   </style>
 </head>
 
@@ -466,7 +382,7 @@
         <div class="logo"><i class="ri-line-chart-line"></i></div>
         <div>
           <h1>FinBert Pro</h1>
-          <p>Personal finance — local-first</p>
+          <p>Local-first • categorie e sottocategorie</p>
         </div>
       </div>
       <button class="iconBtn" id="btnExportTop" aria-label="Esporta backup" title="Esporta backup">
@@ -498,7 +414,7 @@
 
         <div class="card">
           <div class="list">
-            <div class="row" role="button" tabindex="0" id="rowBank">
+            <div class="row" role="button" tabindex="0">
               <div class="ric" style="background: linear-gradient(135deg, rgba(167,139,250,0.95), rgba(76,125,255,0.85));">
                 <i class="ri-bank-fill"></i>
               </div>
@@ -509,7 +425,7 @@
               <div class="rright money" id="dashBank">€ 0,00</div>
             </div>
 
-            <div class="row" role="button" tabindex="0" id="rowCash">
+            <div class="row" role="button" tabindex="0">
               <div class="ric" style="background: linear-gradient(135deg, rgba(255,176,32,0.95), rgba(255,77,77,0.75));">
                 <i class="ri-wallet-3-fill"></i>
               </div>
@@ -521,6 +437,8 @@
             </div>
           </div>
         </div>
+
+        <p class="miniNote">Suggerimento: clicca “Wallet” per inserire una transazione. Clicca una riga per correggerla.</p>
       </div>
     </section>
 
@@ -528,7 +446,7 @@
     <section id="view-stats" class="view">
       <div class="sectionHead">
         <h2>Statistiche</h2>
-        <div class="hint">Panoramica</div>
+        <div class="hint">Uscite & asset</div>
       </div>
 
       <div class="card pad">
@@ -548,13 +466,15 @@
         </div>
         <div class="chartWrap"><canvas id="chartAsset"></canvas></div>
       </div>
+
+      <p class="miniNote">Nota: qui raggruppo per categoria principale. Se vuoi anche un grafico per sottocategorie te lo aggiungo.</p>
     </section>
 
     <!-- ASSET -->
     <section id="view-assets" class="view">
       <div class="sectionHead">
         <h2>Asset</h2>
-        <div class="hint">Posizioni</div>
+        <div class="hint">Clicca per modificare</div>
       </div>
       <div id="assetList" class="card list"></div>
     </section>
@@ -563,7 +483,7 @@
     <section id="view-wallet" class="view">
       <div class="sectionHead">
         <h2>Wallet</h2>
-        <div class="hint">Movimenti</div>
+        <div class="hint">Clicca una transazione per correggerla</div>
       </div>
       <div id="transList" class="card list"></div>
     </section>
@@ -572,7 +492,7 @@
     <section id="view-settings" class="view">
       <div class="sectionHead">
         <h2>Impostazioni</h2>
-        <div class="hint">Backup & categorie</div>
+        <div class="hint">Backup • categorie</div>
       </div>
 
       <div class="card">
@@ -582,7 +502,7 @@
               <i class="ri-list-settings-fill"></i>
             </div>
             <div class="rmain">
-              <div class="rtitle">Gestisci categorie</div>
+              <div class="rtitle">Categorie & sottocategorie</div>
               <div class="rsub">Aggiungi / rimuovi</div>
             </div>
             <div class="rright"><i class="ri-arrow-right-s-line" style="color:var(--text3); font-size:18px;"></i></div>
@@ -677,12 +597,20 @@
 
         <div class="row2">
           <div class="field">
+            <div class="label">Sottocategoria</div>
+            <select id="tSub"></select>
+            <div class="miniNote">La lista cambia in base alla categoria.</div>
+          </div>
+          <div class="field">
             <div class="label">Tipo</div>
             <select id="tType">
               <option value="Uscita">🔴 Uscita</option>
               <option value="Entrata">🟢 Entrata</option>
             </select>
           </div>
+        </div>
+
+        <div class="row2">
           <div class="field">
             <div class="label">Conto</div>
             <select id="tAcc">
@@ -690,11 +618,10 @@
               <option value="Contanti">💵 Contanti</option>
             </select>
           </div>
-        </div>
-
-        <div class="field">
-          <div class="label">Data</div>
-          <input id="tDate" type="date" />
+          <div class="field">
+            <div class="label">Data</div>
+            <input id="tDate" type="date" />
+          </div>
         </div>
 
         <button class="btn primary" id="btnSaveTrans">Salva</button>
@@ -741,23 +668,26 @@
   <div class="sheet" id="sheetCats" role="dialog" aria-modal="true" aria-labelledby="catsTitle">
     <div class="sheetCard">
       <div class="sheetHead">
-        <h3 id="catsTitle">Categorie</h3>
+        <h3 id="catsTitle">Categorie & sottocategorie</h3>
         <button class="iconBtn" data-close aria-label="Chiudi"><i class="ri-close-line"></i></button>
       </div>
+
       <div class="sheetBody">
         <div class="row2">
           <div class="field" style="margin:0;">
             <div class="label">Nuova categoria</div>
-            <input id="newCat" placeholder="Es. Bollette" />
+            <input id="newCat" placeholder="Es. Casa" />
           </div>
           <div class="field" style="margin:0; align-self:end;">
             <button class="btn primary" id="btnAddCat">Aggiungi</button>
           </div>
         </div>
 
-        <div id="catsList" class="card" style="margin-top:12px;">
-          <div class="empty">Nessuna categoria</div>
+        <div class="card pad" style="margin-top:12px;">
+          <div id="catsArea"></div>
         </div>
+
+        <p class="miniNote">Puoi aggiungere sottocategorie per ogni categoria (es. Casa → Affitto). Le transazioni useranno sempre l’elenco aggiornato.</p>
       </div>
     </div>
   </div>
@@ -766,14 +696,17 @@
 
   <script>
     // ======================
-    // FinBert Pro — Data
+    // Storage & defaults
     // ======================
-    const STORAGE = {
-      trans: "fb_trans",
-      assets: "fb_assets",
-      cats: "fb_cats"
-    };
-    const DEFAULT_CATS = ["Spesa", "Casa", "Svago", "Stipendio", "Altro"];
+    const STORAGE = { trans: "fb_trans", assets: "fb_assets", cats: "fb_cats" };
+
+    const DEFAULT_CATS = [
+      { name: "Spesa", subs: ["Supermercato", "Bar", "Ristorante"] },
+      { name: "Casa", subs: ["Affitto", "Bollette", "Condominio"] },
+      { name: "Svago", subs: ["Cinema", "Viaggi", "Sport"] },
+      { name: "Stipendio", subs: ["Mensile"] },
+      { name: "Altro", subs: [] }
+    ];
 
     let db = loadDB();
     let charts = { exp: null, ass: null };
@@ -807,22 +740,57 @@
     }
 
     function dateOnlyISO(iso){
-      try{
-        return new Date(iso).toISOString().slice(0, 10);
-      } catch {
-        return new Date().toISOString().slice(0, 10);
-      }
+      try{ return new Date(iso).toISOString().slice(0, 10); }
+      catch{ return new Date().toISOString().slice(0, 10); }
     }
 
+    function safeTrim(s, max){
+      return String(s || "").trim().slice(0, max);
+    }
+
+    // ======================
+    // DB load + migration
+    // ======================
     function loadDB(){
-      try{
-        const trans = JSON.parse(localStorage.getItem(STORAGE.trans)) || [];
-        const assets = JSON.parse(localStorage.getItem(STORAGE.assets)) || [];
-        const cats = JSON.parse(localStorage.getItem(STORAGE.cats)) || DEFAULT_CATS.slice();
-        return { trans, assets, cats };
-      } catch {
-        return { trans: [], assets: [], cats: DEFAULT_CATS.slice() };
+      let trans = [];
+      let assets = [];
+      let cats = null;
+
+      try{ trans = JSON.parse(localStorage.getItem(STORAGE.trans)) || []; } catch { trans = []; }
+      try{ assets = JSON.parse(localStorage.getItem(STORAGE.assets)) || []; } catch { assets = []; }
+      try{ cats = JSON.parse(localStorage.getItem(STORAGE.cats)); } catch { cats = null; }
+
+      // MIGRATION:
+      // - se cats è array di stringhe => converto in [{name, subs:[]}]
+      // - se cats mancante => DEFAULT_CATS
+      if(!cats){
+        cats = structuredClone(DEFAULT_CATS);
+      } else if(Array.isArray(cats) && cats.length && typeof cats[0] === "string"){
+        cats = cats.map(name => ({ name: String(name), subs: [] }));
+      } else if(Array.isArray(cats) && cats.length && typeof cats[0] === "object"){
+        // normalizzo forma
+        cats = cats.map(c => ({
+          name: String(c.name || "Altro"),
+          subs: Array.isArray(c.subs) ? c.subs.map(s => String(s)) : []
+        }));
+      } else if(Array.isArray(cats) && cats.length === 0){
+        cats = structuredClone(DEFAULT_CATS);
+      } else {
+        cats = structuredClone(DEFAULT_CATS);
       }
+
+      // normalizzo transazioni per avere sub sempre presente
+      trans = trans.map(t => ({
+        desc: String(t.desc || "Movimento"),
+        amount: Number(t.amount || 0),
+        cat: String(t.cat || cats[0].name),
+        sub: (t.sub === undefined || t.sub === null) ? "" : String(t.sub),
+        type: (t.type === "Entrata" ? "Entrata" : "Uscita"),
+        acc: (t.acc === "Contanti" ? "Contanti" : "Banca"),
+        date: t.date ? String(t.date) : new Date().toISOString()
+      }));
+
+      return { trans, assets, cats };
     }
 
     function persistDB(){
@@ -868,7 +836,6 @@
     function openSheet(which){
       overlay.classList.add("open");
       overlay.setAttribute("aria-hidden", "false");
-
       if(which === "trans") sheetTrans.classList.add("open");
       if(which === "asset") sheetAsset.classList.add("open");
       if(which === "cats") sheetCats.classList.add("open");
@@ -880,8 +847,6 @@
       sheetTrans.classList.remove("open");
       sheetAsset.classList.remove("open");
       sheetCats.classList.remove("open");
-
-      // reset hidden indices
       document.getElementById("tIndex").value = "";
       document.getElementById("aIndex").value = "";
     }
@@ -891,7 +856,7 @@
     window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeSheets(); });
 
     // ======================
-    // Render & compute
+    // Compute + render
     // ======================
     function compute(){
       let bank = 0, cash = 0, invest = 0;
@@ -899,8 +864,7 @@
       for(const t of db.trans){
         const amount = Number(t.amount || 0);
         const val = (t.type === "Entrata") ? amount : -amount;
-        if(t.acc === "Banca") bank += val;
-        else cash += val;
+        if(t.acc === "Banca") bank += val; else cash += val;
       }
 
       for(const a of db.assets){
@@ -921,7 +885,6 @@
 
       renderTransList();
       renderAssetList();
-
       persistDB();
     }
 
@@ -929,7 +892,7 @@
       const list = document.getElementById("transList");
 
       if(!db.trans.length){
-        list.innerHTML = '<div class="empty">Nessun movimento. Aggiungi la prima transazione.</div>';
+        list.innerHTML = '<div class="empty">Nessun movimento. Premi “+” per aggiungere una transazione.</div>';
         return;
       }
 
@@ -944,9 +907,13 @@
         const colB = "rgba(76,125,255,0.55)";
         const sign = isIn ? "+" : "-";
         const date = new Date(t.date).toLocaleDateString("it-IT");
+
         const cat = escapeHtml(t.cat || "Altro");
+        const sub = escapeHtml(t.sub || "");
         const acc = escapeHtml(t.acc || "Banca");
-        const desc = escapeHtml((t.desc || "Movimento").trim());
+        const desc = escapeHtml(safeTrim(t.desc || "Movimento", 60));
+
+        const catLabel = sub ? `${cat} • ${sub}` : cat;
 
         return `
           <div class="row" role="button" tabindex="0" data-edit-trans="${idx}">
@@ -956,7 +923,7 @@
             <div class="rmain">
               <div class="rtitle">${desc}</div>
               <div class="rsub">
-                <span class="badge">${cat}</span>
+                <span class="badge">${catLabel}</span>
                 <span class="badge">${acc}</span>
                 <span style="color: var(--text3);">${date}</span>
               </div>
@@ -983,12 +950,12 @@
       const list = document.getElementById("assetList");
 
       if(!db.assets.length){
-        list.innerHTML = '<div class="empty">Nessun asset. Aggiungi la tua prima posizione.</div>';
+        list.innerHTML = '<div class="empty">Nessun asset. Premi “+” per aggiungerne uno.</div>';
         return;
       }
 
       list.innerHTML = db.assets.map((a, idx) => {
-        const name = escapeHtml((a.name || "Asset").trim());
+        const name = escapeHtml(safeTrim(a.name || "Asset", 40));
         const qty = Number(a.qty || 0);
         const price = Number(a.price || 0);
         const value = qty * price;
@@ -1022,121 +989,280 @@
     }
 
     // ======================
-    // Categories
+    // Category / subcategory selects
     // ======================
-    function syncCatSelect(){
-      const sel = document.getElementById("tCat");
-      sel.innerHTML = db.cats.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+    function getCatObj(name){
+      return db.cats.find(c => c.name === name) || db.cats[0];
     }
 
-    function renderCats(){
-      const wrap = document.getElementById("catsList");
-      if(!db.cats.length) db.cats = DEFAULT_CATS.slice();
+    function syncCatSelect(){
+      const sel = document.getElementById("tCat");
+      sel.innerHTML = db.cats.map(c => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join("");
+    }
 
-      wrap.innerHTML = `
-        <div class="list">
-          ${db.cats.map((c, i) => `
-            <div class="row" style="border-top:none;">
-              <div class="ric" style="background: linear-gradient(135deg, rgba(255,176,32,0.95), rgba(76,125,255,0.65));">
-                <i class="ri-price-tag-3-line"></i>
+    function syncSubSelect(catName, selectedSub){
+      const sel = document.getElementById("tSub");
+      const cat = getCatObj(catName);
+      const subs = (cat && Array.isArray(cat.subs)) ? cat.subs : [];
+
+      // prima opzione: nessuna
+      const opts = [`<option value="">(Nessuna)</option>`]
+        .concat(subs.map(s => `<option value="${escapeHtml(s)}">${escapeHtml(s)}</option>`));
+
+      sel.innerHTML = opts.join("");
+      sel.value = selectedSub ? selectedSub : "";
+    }
+
+    document.getElementById("tCat").addEventListener("change", () => {
+      const catName = document.getElementById("tCat").value;
+      syncSubSelect(catName, "");
+    });
+
+    // ======================
+    // Categories modal (CRUD cats + subs)
+    // ======================
+    function renderCatsModal(){
+      const area = document.getElementById("catsArea");
+
+      if(!db.cats.length){
+        db.cats = structuredClone(DEFAULT_CATS);
+      }
+
+      area.innerHTML = db.cats.map((c, i) => {
+        const subs = Array.isArray(c.subs) ? c.subs : [];
+        return `
+          <div class="catBlock" data-cat-index="${i}">
+            <div class="catTop">
+              <div class="catName">${escapeHtml(c.name)}</div>
+              <div style="display:flex; gap:8px;">
+                <button class="smallBtn danger" data-del-cat="${i}" title="Elimina categoria" aria-label="Elimina categoria">
+                  <i class="ri-delete-bin-line"></i>
+                </button>
               </div>
-              <div class="rmain">
-                <div class="rtitle">${escapeHtml(c)}</div>
-                <div class="rsub">Categoria</div>
-              </div>
-              <button class="iconBtn" data-del-cat="${i}" aria-label="Elimina categoria">
-                <i class="ri-delete-bin-line" style="color: rgba(255,77,77,0.95);"></i>
-              </button>
             </div>
-          `).join("")}
-        </div>
-      `;
 
-      wrap.querySelectorAll("[data-del-cat]").forEach(btn => {
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          delCat(Number(btn.dataset.delCat));
+            <div class="row2" style="margin-top:10px;">
+              <div class="field" style="margin:0;">
+                <div class="label">Nuova sottocategoria</div>
+                <input data-sub-input="${i}" placeholder="Es. Bollette" />
+              </div>
+              <div class="field" style="margin:0; align-self:end;">
+                <button class="btn primary" data-add-sub="${i}">Aggiungi</button>
+              </div>
+            </div>
+
+            <div class="subList">
+              ${subs.length ? subs.map((s, si) => `
+                <div class="subRow">
+                  <span>${escapeHtml(s)}</span>
+                  <button class="smallBtn danger" data-del-sub="${i}" data-sub-index="${si}" aria-label="Elimina sottocategoria">
+                    <i class="ri-close-line"></i>
+                  </button>
+                </div>
+              `).join("") : `<div class="miniNote">Nessuna sottocategoria.</div>`}
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // delegation: delete cat
+      area.querySelectorAll("[data-del-cat]").forEach(btn => {
+        btn.addEventListener("click", () => delCategory(Number(btn.dataset.delCat)));
+      });
+
+      // add sub
+      area.querySelectorAll("[data-add-sub]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const i = Number(btn.dataset.addSub);
+          const inp = area.querySelector(`[data-sub-input="${i}"]`);
+          addSubcategory(i, inp ? inp.value : "");
+        });
+      });
+
+      // delete sub
+      area.querySelectorAll("[data-del-sub]").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const ci = Number(btn.dataset.delSub);
+          const si = Number(btn.dataset.subIndex);
+          delSubcategory(ci, si);
         });
       });
     }
 
-    function addCat(){
+    function addCategory(){
       const inp = document.getElementById("newCat");
-      const val = (inp.value || "").trim().slice(0, 40);
-      if(!val){ toast("Inserisci un nome categoria"); return; }
-      if(db.cats.includes(val)){ toast("Categoria già presente"); return; }
-      db.cats.push(val);
+      const name = safeTrim(inp.value, 40);
+      if(!name){ toast("Inserisci un nome categoria"); return; }
+      if(db.cats.some(c => c.name === name)){ toast("Categoria già presente"); return; }
+
+      db.cats.push({ name, subs: [] });
       inp.value = "";
+
+      // aggiorna select
       syncCatSelect();
-      renderCats();
+      renderCatsModal();
       render();
       toast("Categoria aggiunta");
     }
 
-    function delCat(i){
+    function delCategory(i){
       if(db.cats.length <= 1){ toast("Devi avere almeno 1 categoria"); return; }
-      const name = db.cats[i];
+      const name = db.cats[i].name;
+
       const used = db.trans.some(t => t.cat === name);
       const msg = used
         ? `La categoria "${name}" è usata in alcune transazioni. Eliminarla comunque?`
         : `Eliminare la categoria "${name}"?`;
+
       if(!confirm(msg)) return;
 
+      // se usata, sposto tutto su "Altro" (o prima categoria)
+      const fallback = db.cats.find(c => c.name === "Altro")?.name || db.cats[0].name;
+
+      db.trans = db.trans.map(t => {
+        if(t.cat === name){
+          return { ...t, cat: fallback, sub: "" };
+        }
+        return t;
+      });
+
       db.cats.splice(i, 1);
+
       syncCatSelect();
-      renderCats();
+      // Se nel form trans aperto avevo quella categoria selezionata, sistemo sub
+      syncSubSelect(document.getElementById("tCat").value, document.getElementById("tSub").value);
+
+      renderCatsModal();
       render();
       toast("Categoria eliminata");
     }
 
+    function addSubcategory(catIndex, value){
+      const val = safeTrim(value, 40);
+      if(!val){ toast("Inserisci un nome sottocategoria"); return; }
+
+      const cat = db.cats[catIndex];
+      if(!cat) return;
+
+      if(!Array.isArray(cat.subs)) cat.subs = [];
+      if(cat.subs.includes(val)){ toast("Sottocategoria già presente"); return; }
+
+      cat.subs.push(val);
+
+      // aggiornare select se sto modificando quella categoria
+      syncSubSelect(document.getElementById("tCat").value, document.getElementById("tSub").value);
+
+      renderCatsModal();
+      persistDB();
+      toast("Sottocategoria aggiunta");
+    }
+
+    function delSubcategory(catIndex, subIndex){
+      const cat = db.cats[catIndex];
+      if(!cat || !Array.isArray(cat.subs)) return;
+
+      const subName = cat.subs[subIndex];
+      const catName = cat.name;
+
+      const used = db.trans.some(t => t.cat === catName && t.sub === subName);
+      const msg = used
+        ? `La sottocategoria "${subName}" è usata in alcune transazioni. Eliminarla comunque?`
+        : `Eliminare la sottocategoria "${subName}"?`;
+
+      if(!confirm(msg)) return;
+
+      // se usata, svuoto sub nelle transazioni che la usano
+      db.trans = db.trans.map(t => {
+        if(t.cat === catName && t.sub === subName){
+          return { ...t, sub: "" };
+        }
+        return t;
+      });
+
+      cat.subs.splice(subIndex, 1);
+
+      syncSubSelect(document.getElementById("tCat").value, document.getElementById("tSub").value);
+      renderCatsModal();
+      render();
+      toast("Sottocategoria eliminata");
+    }
+
     // ======================
-    // Transactions CRUD
+    // Transactions CRUD (with subcategory)
     // ======================
     function newTrans(){
       document.getElementById("tIndex").value = "";
       document.getElementById("transTitle").textContent = "Nuova transazione";
+
       document.getElementById("tDesc").value = "";
       document.getElementById("tAmount").value = "";
       document.getElementById("tType").value = "Uscita";
       document.getElementById("tAcc").value = "Banca";
       document.getElementById("tDate").value = new Date().toISOString().slice(0, 10);
-      document.getElementById("btnDelTrans").style.display = "none";
+
+      // defaults for category/sub
       syncCatSelect();
+      const firstCat = db.cats[0]?.name || "Altro";
+      document.getElementById("tCat").value = firstCat;
+      syncSubSelect(firstCat, "");
+
+      document.getElementById("btnDelTrans").style.display = "none";
       openSheet("trans");
     }
 
     function editTrans(idx){
       const t = db.trans[idx];
+
       document.getElementById("tIndex").value = String(idx);
       document.getElementById("transTitle").textContent = "Modifica transazione";
+
       document.getElementById("tDesc").value = t.desc || "";
       document.getElementById("tAmount").value = Number(t.amount || 0);
+
       syncCatSelect();
-      document.getElementById("tCat").value = t.cat || db.cats[0];
+      document.getElementById("tCat").value = t.cat || (db.cats[0]?.name || "Altro");
+
+      syncSubSelect(document.getElementById("tCat").value, t.sub || "");
+
       document.getElementById("tType").value = t.type || "Uscita";
       document.getElementById("tAcc").value = t.acc || "Banca";
       document.getElementById("tDate").value = dateOnlyISO(t.date || new Date().toISOString());
+
       document.getElementById("btnDelTrans").style.display = "block";
       openSheet("trans");
     }
 
     function saveTrans(){
       const idxStr = document.getElementById("tIndex").value;
-      const desc = (document.getElementById("tDesc").value || "Movimento").trim().slice(0, 60);
+
+      const desc = safeTrim(document.getElementById("tDesc").value, 60) || "Movimento";
       const amount = Number(document.getElementById("tAmount").value || 0);
-      const cat = document.getElementById("tCat").value || (db.cats[0] || "Altro");
+
+      const cat = document.getElementById("tCat").value || (db.cats[0]?.name || "Altro");
+      const sub = document.getElementById("tSub").value || "";
+
       const type = document.getElementById("tType").value;
       const acc = document.getElementById("tAcc").value;
 
       const dateVal = document.getElementById("tDate").value;
       const date = dateVal ? new Date(dateVal + "T12:00:00").toISOString() : new Date().toISOString();
 
+      // Validazioni
       if(!(amount > 0)){
-        toast("Inserisci un importo valido");
+        toast("Importo non valido (deve essere > 0)");
+        return;
+      }
+      if(!cat){
+        toast("Seleziona una categoria");
         return;
       }
 
-      const obj = { desc, amount, cat, type, acc, date };
+      // Se la sub scelta non esiste più nella categoria, la resetto
+      const catObj = getCatObj(cat);
+      const subOk = sub && catObj && Array.isArray(catObj.subs) && catObj.subs.includes(sub);
+      const finalSub = subOk ? sub : "";
+
+      const obj = { desc, amount, cat, sub: finalSub, type, acc, date };
 
       if(idxStr !== ""){
         db.trans[Number(idxStr)] = obj;
@@ -1153,6 +1279,7 @@
       const idxStr = document.getElementById("tIndex").value;
       if(idxStr === "") return;
       if(!confirm("Eliminare questa transazione?")) return;
+
       db.trans.splice(Number(idxStr), 1);
       closeSheets();
       render();
@@ -1185,22 +1312,17 @@
 
     function saveAsset(){
       const idxStr = document.getElementById("aIndex").value;
-      const name = (document.getElementById("aName").value || "Asset").trim().slice(0, 40);
+      const name = safeTrim(document.getElementById("aName").value, 40) || "Asset";
       const qty = Number(document.getElementById("aQty").value || 0);
       const price = Number(document.getElementById("aPrice").value || 0);
 
-      if(!(qty > 0) || price < 0){
-        toast("Quantità / prezzo non validi");
-        return;
-      }
+      if(!(qty > 0)){ toast("Quantità non valida (deve essere > 0)"); return; }
+      if(price < 0){ toast("Prezzo non valido"); return; }
 
       const obj = { name, qty, price };
 
-      if(idxStr !== ""){
-        db.assets[Number(idxStr)] = obj;
-      } else {
-        db.assets.push(obj);
-      }
+      if(idxStr !== "") db.assets[Number(idxStr)] = obj;
+      else db.assets.push(obj);
 
       closeSheets();
       render();
@@ -1211,6 +1333,7 @@
       const idxStr = document.getElementById("aIndex").value;
       if(idxStr === "") return;
       if(!confirm("Eliminare questo asset?")) return;
+
       db.assets.splice(Number(idxStr), 1);
       closeSheets();
       render();
@@ -1229,39 +1352,28 @@
 
       const expData = {};
       db.trans.filter(t => t.type === "Uscita").forEach(t => {
-        expData[t.cat] = (expData[t.cat] || 0) + Number(t.amount || 0);
+        const k = t.cat || "Altro";
+        expData[k] = (expData[k] || 0) + Number(t.amount || 0);
       });
 
       const assData = {};
       db.assets.forEach(a => {
-        assData[a.name] = (Number(a.qty || 0) * Number(a.price || 0));
+        const k = a.name || "Asset";
+        assData[k] = (Number(a.qty || 0) * Number(a.price || 0));
       });
 
       const palette = ["#4C7DFF","#A78BFA","#2EE59D","#FFB020","#FF4D4D","#60A5FA","#22C55E","#F97316"];
 
       charts.exp = new Chart(ctx1, {
         type: "doughnut",
-        data: {
-          labels: Object.keys(expData),
-          datasets: [{ data: Object.values(expData), backgroundColor: palette }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          cutout: "62%",
-          plugins: { legend: { position: "right" } }
-        }
+        data: { labels: Object.keys(expData), datasets: [{ data: Object.values(expData), backgroundColor: palette }] },
+        options: { maintainAspectRatio:false, cutout:"62%", plugins:{ legend:{ position:"right" } } }
       });
 
       charts.ass = new Chart(ctx2, {
         type: "pie",
-        data: {
-          labels: Object.keys(assData),
-          datasets: [{ data: Object.values(assData), backgroundColor: palette }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          plugins: { legend: { position: "right" } }
-        }
+        data: { labels: Object.keys(assData), datasets: [{ data: Object.values(assData), backgroundColor: palette }] },
+        options: { maintainAspectRatio:false, plugins:{ legend:{ position:"right" } } }
       });
     }
 
@@ -1283,12 +1395,36 @@
       reader.onload = (e) => {
         try{
           const loaded = JSON.parse(e.target.result);
-          if(!loaded || !Array.isArray(loaded.trans) || !Array.isArray(loaded.assets) || !Array.isArray(loaded.cats)){
+
+          if(!loaded || !Array.isArray(loaded.trans) || !Array.isArray(loaded.assets) || !loaded.cats){
             toast("File non valido");
             return;
           }
-          db = loaded;
+
+          // normalizzo cats anche se arriva vecchio formato
+          let cats = loaded.cats;
+          if(Array.isArray(cats) && cats.length && typeof cats[0] === "string"){
+            cats = cats.map(name => ({ name: String(name), subs: [] }));
+          } else if(Array.isArray(cats) && cats.length && typeof cats[0] === "object"){
+            cats = cats.map(c => ({ name: String(c.name || "Altro"), subs: Array.isArray(c.subs) ? c.subs.map(s => String(s)) : [] }));
+          } else {
+            cats = structuredClone(DEFAULT_CATS);
+          }
+
+          // trans: garantisco sub
+          const trans = loaded.trans.map(t => ({
+            desc: String(t.desc || "Movimento"),
+            amount: Number(t.amount || 0),
+            cat: String(t.cat || cats[0].name),
+            sub: (t.sub === undefined || t.sub === null) ? "" : String(t.sub),
+            type: (t.type === "Entrata" ? "Entrata" : "Uscita"),
+            acc: (t.acc === "Contanti" ? "Contanti" : "Banca"),
+            date: t.date ? String(t.date) : new Date().toISOString()
+          }));
+
+          db = { trans, assets: loaded.assets || [], cats };
           syncCatSelect();
+          syncSubSelect(document.getElementById("tCat").value || (db.cats[0]?.name || "Altro"), "");
           closeSheets();
           render();
           toast("Backup importato");
@@ -1301,15 +1437,16 @@
 
     function resetAll(){
       if(!confirm("Reset totale: vuoi cancellare tutti i dati locali?")) return;
-      db = { trans: [], assets: [], cats: DEFAULT_CATS.slice() };
+      db = { trans: [], assets: [], cats: structuredClone(DEFAULT_CATS) };
       syncCatSelect();
+      syncSubSelect(db.cats[0].name, "");
       closeSheets();
       render();
       toast("Dati cancellati");
     }
 
     // ======================
-    // Wiring buttons
+    // Wiring
     // ======================
     document.getElementById("fabTrans").addEventListener("click", newTrans);
     document.getElementById("fabAsset").addEventListener("click", newAsset);
@@ -1321,21 +1458,17 @@
     document.getElementById("btnDelAsset").addEventListener("click", delAsset);
 
     document.getElementById("btnCats").addEventListener("click", () => {
-      renderCats();
+      renderCatsModal();
       openSheet("cats");
     });
-    document.getElementById("btnAddCat").addEventListener("click", addCat);
-    document.getElementById("newCat").addEventListener("keydown", (e) => {
-      if(e.key === "Enter") addCat();
-    });
+
+    document.getElementById("btnAddCat").addEventListener("click", addCategory);
+    document.getElementById("newCat").addEventListener("keydown", (e) => { if(e.key === "Enter") addCategory(); });
 
     document.getElementById("btnExport").addEventListener("click", exportData);
     document.getElementById("btnExportTop").addEventListener("click", exportData);
 
-    document.getElementById("btnImport").addEventListener("click", () => {
-      document.getElementById("fileImport").click();
-    });
-
+    document.getElementById("btnImport").addEventListener("click", () => document.getElementById("fileImport").click());
     document.getElementById("fileImport").addEventListener("change", (e) => {
       const f = e.target.files && e.target.files[0];
       if(f) importData(f);
@@ -1348,6 +1481,11 @@
     // Init
     // ======================
     syncCatSelect();
+    // inizializzo sub su prima categoria
+    const initCat = db.cats[0]?.name || "Altro";
+    document.getElementById("tCat").value = initCat;
+    syncSubSelect(initCat, "");
+
     render();
     setView("home");
   </script>
