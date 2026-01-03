@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>FinBert Pro</title>
+    <title>FinBert Ultimate</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#f2f2f7">
     
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
         :root {
             --bg: #f2f2f7; --card: #ffffff; --text: #000000; --text-sec: #8e8e93;
-            --primary: #007aff; --green: #34c759; --red: #ff3b30; --orange: #ff9500;
+            --primary: #007aff; --green: #34c759; --red: #ff3b30; --orange: #ff9500; --purple: #5856D6;
             --separator: #c6c6c8; --modal-bg: #ffffff;
         }
 
@@ -34,7 +35,7 @@
 
         /* TYPOGRAPHY */
         h1 { margin: 0; font-size: 34px; font-weight: 700; letter-spacing: -0.5px; }
-        h2 { font-size: 22px; font-weight: 600; margin-bottom: 15px; }
+        h2 { font-size: 20px; font-weight: 600; margin-bottom: 15px; }
         .subtitle { color: var(--text-sec); font-size: 13px; text-transform: uppercase; font-weight: 600; margin-bottom: 5px; }
         .money { font-family: "SF Pro Display", sans-serif; font-weight: 700; font-feature-settings: "tnum"; }
         .green { color: var(--green); } .red { color: var(--red); }
@@ -45,13 +46,13 @@
         
         .card {
             background: var(--card); border-radius: 12px; overflow: hidden;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px; padding: 0;
         }
 
         .list-row {
             display: flex; justify-content: space-between; align-items: center;
             padding: 16px; border-bottom: 0.5px solid var(--separator);
-            position: relative;
+            position: relative; cursor: pointer;
         }
         .list-row:last-child { border-bottom: none; }
         .list-row:active { background-color: rgba(128,128,128,0.1); }
@@ -60,17 +61,26 @@
             width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center;
             font-size: 20px; margin-right: 15px; color: white; flex-shrink: 0;
         }
-        .row-content { flex-grow: 1; }
-        .row-title { font-size: 17px; font-weight: 600; margin-bottom: 2px; }
-        .row-sub { font-size: 14px; color: var(--text-sec); }
-        .row-amount { font-size: 17px; font-weight: 600; text-align: right; }
+        .row-content { flex-grow: 1; overflow: hidden; }
+        .row-title { font-size: 17px; font-weight: 600; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .row-sub { font-size: 14px; color: var(--text-sec); display: flex; align-items: center; gap: 5px;}
+        .row-amount { font-size: 17px; font-weight: 600; text-align: right; white-space: nowrap; }
+        
+        /* TAG CATEGORIA */
+        .cat-tag {
+            font-size: 10px; padding: 2px 6px; border-radius: 4px; 
+            background: rgba(128,128,128,0.15); color: var(--text); font-weight: 600;
+        }
 
-        /* DASHBOARD SPECIFIC */
+        /* DASHBOARD */
         .big-balance { font-size: 42px; font-weight: 800; letter-spacing: -1px; margin: 5px 0 20px 0; }
         .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
         .summary-card { background: var(--card); padding: 15px; border-radius: 12px; }
         .summary-label { font-size: 12px; color: var(--text-sec); font-weight: 600; text-transform: uppercase; }
         .summary-val { font-size: 20px; font-weight: 700; margin-top: 5px; }
+
+        /* CHARTS CONTAINER */
+        .chart-container { position: relative; height: 250px; width: 100%; display: flex; justify-content: center; align-items: center;}
 
         /* TAB BAR */
         .tab-bar {
@@ -90,7 +100,7 @@
         .tab-btn i { font-size: 24px; margin-bottom: 2px; }
         .tab-btn.active { color: var(--primary); }
 
-        /* FAB (Add Button) */
+        /* FAB */
         .fab {
             position: fixed; bottom: 100px; right: 20px;
             background: var(--primary); color: white;
@@ -101,11 +111,10 @@
         }
         .fab:active { transform: scale(0.9); }
 
-        /* MODAL (SHEET) */
+        /* MODALS */
         .modal-overlay {
             position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.4); z-index: 200; display: none;
-            opacity: 0; transition: opacity 0.3s;
+            background: rgba(0,0,0,0.4); z-index: 200; display: none; opacity: 0; transition: opacity 0.3s;
         }
         .modal-sheet {
             position: fixed; bottom: -100%; left: 0; right: 0;
@@ -117,26 +126,21 @@
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
         .close-btn { background: #e5e5ea; color: #000; border: none; width: 30px; height: 30px; border-radius: 15px; font-size: 18px; display: flex; align-items: center; justify-content: center; }
 
-        /* FORM ELEMENTS */
+        /* FORM */
         .form-group { margin-bottom: 15px; }
+        label { font-size: 12px; color: var(--text-sec); margin-left: 5px; margin-bottom: 5px; display: block; }
         input, select {
             width: 100%; padding: 16px; background: var(--bg); border: none;
             border-radius: 10px; font-size: 17px; color: var(--text);
             box-sizing: border-box; outline: none; -webkit-appearance: none;
         }
-        .action-btn {
-            width: 100%; padding: 16px; background: var(--primary); color: white;
-            border: none; border-radius: 12px; font-size: 17px; font-weight: 700; margin-top: 10px;
-        }
+        .action-btn { width: 100%; padding: 16px; background: var(--primary); color: white; border: none; border-radius: 12px; font-size: 17px; font-weight: 700; margin-top: 10px; }
+        .delete-btn { width: 100%; padding: 16px; background: transparent; color: var(--red); border: none; font-size: 15px; margin-top: 10px; }
 
         /* VIEWS */
         .view { display: none; animation: fadeIn 0.2s; }
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* PORTFOLIO BARS */
-        .progress-bar { height: 4px; background: #e5e5ea; border-radius: 2px; margin-top: 8px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--primary); border-radius: 2px; }
 
     </style>
 </head>
@@ -184,11 +188,29 @@
         </div>
     </div>
 
+    <div id="view-stats" class="view">
+        <div class="header"><h1>Statistiche</h1></div>
+        <div class="section">
+            <div class="card" style="padding: 20px;">
+                <h2>Spese per Categoria</h2>
+                <div class="chart-container">
+                    <canvas id="expenseChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="card" style="padding: 20px;">
+                <h2>Allocazione Asset</h2>
+                <div class="chart-container">
+                    <canvas id="assetChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="view-wallet" class="view">
         <div class="header"><h1>Wallet</h1></div>
         <div class="section">
-            <div class="card" id="transactionList">
-                </div>
+            <div class="card" id="transactionList"></div>
         </div>
         <button class="fab" onclick="openModal('transaction')"><i class="ri-add-line"></i></button>
     </div>
@@ -196,8 +218,7 @@
     <div id="view-portfolio" class="view">
         <div class="header"><h1>Portfolio</h1></div>
         <div class="section">
-            <div class="card" id="investmentList">
-                </div>
+            <div class="card" id="investmentList"></div>
         </div>
         <button class="fab" onclick="openModal('investment')"><i class="ri-add-line"></i></button>
     </div>
@@ -206,11 +227,23 @@
         <div class="header"><h1>Impostazioni</h1></div>
         <div class="section">
             <div class="card">
+                <div class="list-row" onclick="openModal('categories')">
+                    <div class="row-icon" style="background: var(--purple)"><i class="ri-price-tag-3-fill"></i></div>
+                    <div class="row-content">
+                        <div class="row-title">Gestisci Categorie</div>
+                        <div class="row-sub">Aggiungi o rimuovi</div>
+                    </div>
+                    <i class="ri-arrow-right-s-line" style="color:#ccc"></i>
+                </div>
+            </div>
+
+            <h2>Backup Dati</h2>
+            <div class="card">
                 <div class="list-row" onclick="exportData()">
                     <div class="row-icon" style="background: var(--primary)"><i class="ri-download-cloud-2-fill"></i></div>
                     <div class="row-content">
                         <div class="row-title">Esporta Backup</div>
-                        <div class="row-sub">Salva i tuoi dati in un file</div>
+                        <div class="row-sub">Salva file JSON</div>
                     </div>
                     <i class="ri-arrow-right-s-line" style="color:#ccc"></i>
                 </div>
@@ -218,7 +251,7 @@
                     <div class="row-icon" style="background: var(--orange)"><i class="ri-upload-cloud-2-fill"></i></div>
                     <div class="row-content">
                         <div class="row-title">Importa Backup</div>
-                        <div class="row-sub">Ripristina da file JSON</div>
+                        <div class="row-sub">Ripristina da file</div>
                     </div>
                     <i class="ri-arrow-right-s-line" style="color:#ccc"></i>
                     <input type="file" id="importFile" style="display:none" onchange="importData(this)">
@@ -227,11 +260,10 @@
                     <div class="row-icon" style="background: var(--red)"><i class="ri-delete-bin-fill"></i></div>
                     <div class="row-content">
                         <div class="row-title" style="color:var(--red)">Resetta Tutto</div>
-                        <div class="row-sub">Cancella tutti i dati</div>
+                        <div class="row-sub">Cancella database</div>
                     </div>
                 </div>
             </div>
-            <p style="text-align:center; color:var(--text-sec); font-size:12px; margin-top:20px;">FinBert PWA v2.0 • Progettato per durare</p>
         </div>
     </div>
 
@@ -239,9 +271,10 @@
     
     <div class="modal-sheet" id="modalTransaction">
         <div class="modal-header">
-            <h2>Nuovo Movimento</h2>
+            <h2 id="transModalTitle">Nuovo Movimento</h2>
             <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
         </div>
+        <input type="hidden" id="tId">
         <div class="form-group">
             <input type="text" id="tTitle" placeholder="Descrizione (es. Spesa, Stipendio)">
         </div>
@@ -249,30 +282,37 @@
             <input type="number" id="tAmount" placeholder="Importo (es. 50.00)">
         </div>
         <div class="form-group">
-            <select id="tType">
-                <option value="Uscita">🔴 Uscita</option>
-                <option value="Entrata">🟢 Entrata</option>
-            </select>
+            <select id="tCategory">
+                </select>
         </div>
         <div class="form-group">
-            <select id="tAccount">
-                <option value="Banca">🏦 Banca</option>
-                <option value="Contanti">💵 Contanti</option>
-            </select>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                <select id="tType">
+                    <option value="Uscita">🔴 Uscita</option>
+                    <option value="Entrata">🟢 Entrata</option>
+                </select>
+                <select id="tAccount">
+                    <option value="Banca">🏦 Banca</option>
+                    <option value="Contanti">💵 Contanti</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Data</label>
+            <input type="date" id="tDate">
         </div>
         <button class="action-btn" onclick="saveTransaction()">Salva</button>
+        <button class="delete-btn" id="btnDeleteTrans" style="display:none" onclick="deleteTransactionCurrent()">Elimina Transazione</button>
     </div>
 
     <div class="modal-sheet" id="modalInvestment">
         <div class="modal-header">
-            <h2>Nuovo Asset</h2>
+            <h2 id="investModalTitle">Nuovo Asset</h2>
             <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
         </div>
+        <input type="hidden" id="iId">
         <div class="form-group">
             <input type="text" id="iName" placeholder="Nome (es. Apple, Bitcoin)">
-        </div>
-        <div class="form-group">
-            <input type="text" id="iTicker" placeholder="Ticker (es. AAPL) - Opzionale">
         </div>
         <div class="form-group">
             <input type="number" id="iQty" placeholder="Quantità Posseduta">
@@ -281,33 +321,45 @@
             <input type="number" id="iPrice" placeholder="Prezzo Attuale">
         </div>
         <button class="action-btn" onclick="saveInvestment()">Salva Asset</button>
+        <button class="delete-btn" id="btnDeleteInvest" style="display:none" onclick="deleteInvestmentCurrent()">Elimina Asset</button>
+    </div>
+
+    <div class="modal-sheet" id="modalCategories">
+        <div class="modal-header">
+            <h2>Gestisci Categorie</h2>
+            <button class="close-btn" onclick="closeModal()"><i class="ri-close-line"></i></button>
+        </div>
+        <div style="display:flex; gap:10px; margin-bottom:20px;">
+            <input type="text" id="newCatName" placeholder="Nuova categoria...">
+            <button class="action-btn" style="width:auto; margin:0;" onclick="addCategory()">Aggiungi</button>
+        </div>
+        <div id="categoriesList" style="display:flex; flex-direction:column; gap:10px;">
+            </div>
     </div>
 
     <div class="tab-bar">
-        <button class="tab-btn active" onclick="nav('dashboard', this)">
-            <i class="ri-dashboard-fill"></i><span>Home</span>
-        </button>
-        <button class="tab-btn" onclick="nav('portfolio', this)">
-            <i class="ri-pie-chart-2-fill"></i><span>Portfolio</span>
-        </button>
-        <button class="tab-btn" onclick="nav('wallet', this)">
-            <i class="ri-wallet-3-fill"></i><span>Wallet</span>
-        </button>
-        <button class="tab-btn" onclick="nav('settings', this)">
-            <i class="ri-settings-4-fill"></i><span>Settings</span>
-        </button>
+        <button class="tab-btn active" onclick="nav('dashboard', this)"><i class="ri-dashboard-fill"></i><span>Home</span></button>
+        <button class="tab-btn" onclick="nav('stats', this)"><i class="ri-pie-chart-fill"></i><span>Stats</span></button>
+        <button class="tab-btn" onclick="nav('portfolio', this)"><i class="ri-line-chart-fill"></i><span>Asset</span></button>
+        <button class="tab-btn" onclick="nav('wallet', this)"><i class="ri-wallet-3-fill"></i><span>Wallet</span></button>
+        <button class="tab-btn" onclick="nav('settings', this)"><i class="ri-settings-4-fill"></i><span>Menu</span></button>
     </div>
 
     <script>
-        // --- DATA LAYER ---
+        // --- DB & STATE ---
         let db = {
             transactions: JSON.parse(localStorage.getItem('fb_trans')) || [],
-            investments: JSON.parse(localStorage.getItem('fb_invest')) || []
+            investments: JSON.parse(localStorage.getItem('fb_invest')) || [],
+            categories: JSON.parse(localStorage.getItem('fb_cats')) || ["Spesa", "Casa", "Svago", "Stipendio", "Altro"]
         };
+
+        let charts = { expense: null, asset: null };
+        let currentEditIdx = null;
 
         function saveDB() {
             localStorage.setItem('fb_trans', JSON.stringify(db.transactions));
             localStorage.setItem('fb_invest', JSON.stringify(db.investments));
+            localStorage.setItem('fb_cats', JSON.stringify(db.categories));
             renderAll();
         }
 
@@ -317,108 +369,243 @@
             document.getElementById('view-' + viewName).classList.add('active');
             document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
             if(btn) btn.classList.add('active');
+            
+            if(viewName === 'stats') renderCharts();
         }
 
-        // --- RENDER LOGIC ---
         function fmtMoney(n) { return n.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' }); }
 
+        // --- RENDER LOGIC ---
         function renderAll() {
-            // CALCOLI
+            // Totals
             let bank = 0, cash = 0, invest = 0;
-            
             db.transactions.forEach(t => {
                 if(t.account === 'Banca') bank += (t.type === 'Entrata' ? t.amount : -t.amount);
                 else cash += (t.type === 'Entrata' ? t.amount : -t.amount);
             });
-            
             db.investments.forEach(i => invest += (i.qty * i.price));
 
-            // DASHBOARD UPDATE
             document.getElementById('netWorth').innerText = fmtMoney(bank + cash + invest);
             document.getElementById('liquidTotal').innerText = fmtMoney(bank + cash);
             document.getElementById('investTotal').innerText = fmtMoney(invest);
             document.getElementById('bankRow').innerText = fmtMoney(bank);
             document.getElementById('cashRow').innerText = fmtMoney(cash);
 
-            // WALLET LIST
+            // Transactions List
             const tList = document.getElementById('transactionList');
-            if(db.transactions.length === 0) {
-                tList.innerHTML = '<div style="padding:20px; text-align:center; color:#999">Nessun movimento</div>';
-            } else {
-                tList.innerHTML = '';
-                db.transactions.slice().reverse().forEach((t, idx) => {
-                    const icon = t.type === 'Entrata' ? 'ri-arrow-down-circle-fill' : 'ri-arrow-up-circle-fill';
-                    const color = t.type === 'Entrata' ? 'var(--green)' : 'var(--text)'; // Uscite nere stile Apple
-                    tList.innerHTML += `
-                        <div class="list-row">
-                            <div class="row-icon" style="background: ${t.type === 'Entrata' ? 'var(--green)' : '#ff3b30'}">
-                                <i class="${t.type === 'Entrata' ? 'ri-arrow-down-line' : 'ri-arrow-up-line'}"></i>
-                            </div>
-                            <div class="row-content">
-                                <div class="row-title">${t.title}</div>
-                                <div class="row-sub">${t.account} • ${new Date(t.date).toLocaleDateString()}</div>
-                            </div>
-                            <div class="row-amount money" style="color:${t.type === 'Entrata' ? 'var(--green)' : 'inherit'}">
-                                ${t.type === 'Entrata' ? '+' : '-'}${fmtMoney(t.amount)}
-                            </div>
-                            <i class="ri-delete-bin-line" style="margin-left:10px; color:#ccc;" onclick="deleteTrans(${db.transactions.length - 1 - idx})"></i>
+            tList.innerHTML = db.transactions.length ? '' : '<div style="padding:20px; text-align:center; color:#999">Nessun movimento</div>';
+            
+            db.transactions.slice().reverse().forEach((t, reverseIdx) => {
+                const realIdx = db.transactions.length - 1 - reverseIdx;
+                tList.innerHTML += `
+                    <div class="list-row" onclick="editTransaction(${realIdx})">
+                        <div class="row-icon" style="background: ${t.type === 'Entrata' ? 'var(--green)' : '#ff3b30'}">
+                            <i class="${t.type === 'Entrata' ? 'ri-arrow-down-line' : 'ri-arrow-up-line'}"></i>
                         </div>
-                    `;
+                        <div class="row-content">
+                            <div class="row-title">${t.title}</div>
+                            <div class="row-sub">
+                                <span class="cat-tag">${t.category || 'Altro'}</span>
+                                <span style="margin-left:5px">${t.account} • ${new Date(t.date).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div class="row-amount money" style="color:${t.type === 'Entrata' ? 'var(--green)' : 'inherit'}">
+                            ${t.type === 'Entrata' ? '+' : '-'}${fmtMoney(t.amount)}
+                        </div>
+                        <i class="ri-arrow-right-s-line" style="color:#ccc; margin-left:10px"></i>
+                    </div>
+                `;
+            });
+
+            // Investment List
+            const iList = document.getElementById('investmentList');
+            iList.innerHTML = db.investments.length ? '' : '<div style="padding:20px; text-align:center; color:#999">Nessun asset</div>';
+            
+            let sortedInv = db.investments.sort((a,b) => (b.qty*b.price) - (a.qty*a.price));
+            sortedInv.forEach((i, idx) => {
+                let val = i.qty * i.price;
+                iList.innerHTML += `
+                    <div class="list-row" style="display:block" onclick="editInvestment(${idx})">
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div style="display:flex; align-items:center;">
+                                <div class="row-icon" style="background:var(--primary); width:32px; height:32px; font-size:16px;">
+                                    ${i.name.charAt(0).toUpperCase()}
+                                </div>
+                                <div>
+                                    <div class="row-title">${i.name}</div>
+                                    <div class="row-sub">${i.qty} quote • ${fmtMoney(i.price)}</div>
+                                </div>
+                            </div>
+                            <div style="text-align:right">
+                                <div class="row-amount money">${fmtMoney(val)}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // --- CHARTS (CHART.JS) ---
+        function renderCharts() {
+            // 1. Expense Chart
+            const ctx1 = document.getElementById('expenseChart').getContext('2d');
+            const expenses = db.transactions.filter(t => t.type === 'Uscita');
+            
+            // Group by category
+            let catTotals = {};
+            expenses.forEach(t => {
+                let cat = t.category || 'Altro';
+                catTotals[cat] = (catTotals[cat] || 0) + t.amount;
+            });
+
+            if(charts.expense) charts.expense.destroy();
+            charts.expense = new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(catTotals),
+                    datasets: [{
+                        data: Object.values(catTotals),
+                        backgroundColor: ['#ff3b30', '#ff9500', '#5856D6', '#007aff', '#34c759', '#8e8e93'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+            });
+
+            // 2. Asset Chart
+            const ctx2 = document.getElementById('assetChart').getContext('2d');
+            let assetTotals = {};
+            db.investments.forEach(i => {
+                assetTotals[i.name] = (i.qty * i.price);
+            });
+
+            if(charts.asset) charts.asset.destroy();
+            charts.asset = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(assetTotals),
+                    datasets: [{
+                        data: Object.values(assetTotals),
+                        backgroundColor: ['#007aff', '#34c759', '#ff9500', '#5856D6', '#ff3b30'],
+                        borderWidth: 0
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } } }
+            });
+        }
+
+        // --- CRUD ACTIONS ---
+        
+        // MODALS
+        function openModal(type, isEdit = false) {
+            document.getElementById('modalOverlay').style.display = 'block';
+            setTimeout(() => document.getElementById('modalOverlay').style.opacity = '1', 10);
+            
+            let sheetId = '';
+            if(type === 'transaction') sheetId = 'modalTransaction';
+            else if(type === 'investment') sheetId = 'modalInvestment';
+            else if(type === 'categories') {
+                sheetId = 'modalCategories';
+                renderCategoriesList();
+            }
+            
+            const sheet = document.getElementById(sheetId);
+            sheet.style.bottom = '0';
+
+            // Populate Category Select
+            if(type === 'transaction') {
+                const sel = document.getElementById('tCategory');
+                sel.innerHTML = '';
+                db.categories.forEach(c => {
+                    let opt = document.createElement('option');
+                    opt.value = c; opt.innerText = c;
+                    sel.appendChild(opt);
                 });
             }
 
-            // PORTFOLIO LIST
-            const iList = document.getElementById('investmentList');
-            if(db.investments.length === 0) {
-                iList.innerHTML = '<div style="padding:20px; text-align:center; color:#999">Nessun asset</div>';
-            } else {
-                iList.innerHTML = '';
-                // Sort by value
-                let sortedInv = db.investments.sort((a,b) => (b.qty*b.price) - (a.qty*a.price));
-                let maxVal = sortedInv.length > 0 ? (sortedInv[0].qty * sortedInv[0].price) : 1;
-
-                sortedInv.forEach((i, idx) => {
-                    let val = i.qty * i.price;
-                    let percent = (val / maxVal) * 100;
-                    iList.innerHTML += `
-                        <div class="list-row" style="display:block">
-                            <div style="display:flex; justify-content:space-between; align-items:center;">
-                                <div style="display:flex; align-items:center;">
-                                    <div class="row-icon" style="background:var(--primary); width:32px; height:32px; font-size:16px;">
-                                        ${i.name.charAt(0)}
-                                    </div>
-                                    <div>
-                                        <div class="row-title">${i.name}</div>
-                                        <div class="row-sub">${i.qty} quote • ${fmtMoney(i.price)}</div>
-                                    </div>
-                                </div>
-                                <div style="text-align:right">
-                                    <div class="row-amount money">${fmtMoney(val)}</div>
-                                    <div style="font-size:12px; color:#ccc; cursor:pointer" onclick="deleteInvest(${idx})">Elimina</div>
-                                </div>
-                            </div>
-                            <div class="progress-bar"><div class="progress-fill" style="width:${percent}%"></div></div>
-                        </div>
-                    `;
-                });
+            // Reset if adding new
+            if(!isEdit && type !== 'categories') {
+                currentEditIdx = null;
+                if(type === 'transaction') {
+                    document.getElementById('transModalTitle').innerText = 'Nuovo Movimento';
+                    document.getElementById('tTitle').value = '';
+                    document.getElementById('tAmount').value = '';
+                    document.getElementById('tDate').valueAsDate = new Date();
+                    document.getElementById('btnDeleteTrans').style.display = 'none';
+                } else if(type === 'investment') {
+                    document.getElementById('investModalTitle').innerText = 'Nuovo Asset';
+                    document.getElementById('iName').value = '';
+                    document.getElementById('iQty').value = '';
+                    document.getElementById('iPrice').value = '';
+                    document.getElementById('btnDeleteInvest').style.display = 'none';
+                }
             }
         }
 
-        // --- ACTIONS ---
+        function closeModal() {
+            document.getElementById('modalOverlay').style.opacity = '0';
+            document.querySelectorAll('.modal-sheet').forEach(el => el.style.bottom = '-100%');
+            setTimeout(() => document.getElementById('modalOverlay').style.display = 'none', 300);
+            currentEditIdx = null;
+        }
+
+        // TRANSACTION LOGIC
+        function editTransaction(idx) {
+            currentEditIdx = idx;
+            const t = db.transactions[idx];
+            openModal('transaction', true);
+            
+            document.getElementById('transModalTitle').innerText = 'Modifica Movimento';
+            document.getElementById('tTitle').value = t.title;
+            document.getElementById('tAmount').value = t.amount;
+            document.getElementById('tType').value = t.type;
+            document.getElementById('tAccount').value = t.account;
+            document.getElementById('tCategory').value = t.category || db.categories[0];
+            document.getElementById('tDate').value = t.date.split('T')[0];
+            document.getElementById('btnDeleteTrans').style.display = 'block';
+        }
+
         function saveTransaction() {
             const title = document.getElementById('tTitle').value;
             const amount = parseFloat(document.getElementById('tAmount').value);
             const type = document.getElementById('tType').value;
             const account = document.getElementById('tAccount').value;
+            const category = document.getElementById('tCategory').value;
+            const dateVal = document.getElementById('tDate').value;
+            const date = dateVal ? new Date(dateVal).toISOString() : new Date().toISOString();
 
             if(title && amount) {
-                db.transactions.push({ title, amount, type, account, date: new Date().toISOString() });
+                const obj = { title, amount, type, account, category, date };
+                
+                if(currentEditIdx !== null) {
+                    db.transactions[currentEditIdx] = obj; // Update
+                } else {
+                    db.transactions.push(obj); // Create
+                }
                 saveDB();
                 closeModal();
-                // Clear form
-                document.getElementById('tTitle').value = '';
-                document.getElementById('tAmount').value = '';
             }
+        }
+
+        function deleteTransactionCurrent() {
+            if(confirm('Eliminare questo movimento?')) {
+                db.transactions.splice(currentEditIdx, 1);
+                saveDB();
+                closeModal();
+            }
+        }
+
+        // INVESTMENT LOGIC
+        function editInvestment(idx) {
+            currentEditIdx = idx;
+            const i = db.investments[idx];
+            openModal('investment', true);
+
+            document.getElementById('investModalTitle').innerText = 'Modifica Asset';
+            document.getElementById('iName').value = i.name;
+            document.getElementById('iQty').value = i.qty;
+            document.getElementById('iPrice').value = i.price;
+            document.getElementById('btnDeleteInvest').style.display = 'block';
         }
 
         function saveInvestment() {
@@ -427,29 +614,56 @@
             const price = parseFloat(document.getElementById('iPrice').value);
             
             if(name && qty) {
-                db.investments.push({ name, qty, price: price || 0 });
+                const obj = { name, qty, price: price || 0 };
+                if(currentEditIdx !== null) {
+                    db.investments[currentEditIdx] = obj;
+                } else {
+                    db.investments.push(obj);
+                }
                 saveDB();
                 closeModal();
-                document.getElementById('iName').value = '';
-                document.getElementById('iQty').value = '';
-                document.getElementById('iPrice').value = '';
             }
         }
 
-        function deleteTrans(realIdx) {
-            if(confirm('Eliminare questo movimento?')) {
-                db.transactions.splice(realIdx, 1);
-                saveDB();
-            }
-        }
-        function deleteInvest(idx) {
+        function deleteInvestmentCurrent() {
             if(confirm('Eliminare questo asset?')) {
-                db.investments.splice(idx, 1);
+                db.investments.splice(currentEditIdx, 1);
                 saveDB();
+                closeModal();
             }
         }
 
-        // --- BACKUP SYSTEM ---
+        // CATEGORY LOGIC
+        function renderCategoriesList() {
+            const list = document.getElementById('categoriesList');
+            list.innerHTML = '';
+            db.categories.forEach((cat, idx) => {
+                list.innerHTML += `
+                    <div style="display:flex; justify-content:space-between; padding:10px; background:#f2f2f7; border-radius:8px;">
+                        <span>${cat}</span>
+                        <i class="ri-delete-bin-line" style="color:var(--red)" onclick="deleteCategory(${idx})"></i>
+                    </div>
+                `;
+            });
+        }
+        function addCategory() {
+            const name = document.getElementById('newCatName').value;
+            if(name && !db.categories.includes(name)) {
+                db.categories.push(name);
+                document.getElementById('newCatName').value = '';
+                saveDB();
+                renderCategoriesList();
+            }
+        }
+        function deleteCategory(idx) {
+            if(confirm('Eliminare categoria?')) {
+                db.categories.splice(idx, 1);
+                saveDB();
+                renderCategoriesList();
+            }
+        }
+
+        // BACKUP
         function exportData() {
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(db));
             const dlAnchorElem = document.createElement('a');
@@ -457,44 +671,18 @@
             dlAnchorElem.setAttribute("download", "FinBert_Backup_" + new Date().toISOString().slice(0,10) + ".json");
             dlAnchorElem.click();
         }
-
         function importData(input) {
             const file = input.files[0];
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const loaded = JSON.parse(e.target.result);
-                    if(loaded.transactions && loaded.investments) {
-                        db = loaded;
-                        saveDB();
-                        alert('Backup ripristinato!');
-                    } else { alert('File non valido'); }
-                } catch(err) { alert('Errore nel file'); }
+                    if(loaded.transactions) { db = loaded; saveDB(); alert('Backup ripristinato!'); }
+                } catch(err) { alert('File non valido'); }
             };
             reader.readAsText(file);
         }
-
-        function resetAll() {
-            if(confirm('SEI SICURO? Cancellerai tutto per sempre.')) {
-                db = { transactions: [], investments: [] };
-                saveDB();
-            }
-        }
-
-        // --- UI MODALS ---
-        function openModal(type) {
-            document.getElementById('modalOverlay').style.display = 'block';
-            setTimeout(() => document.getElementById('modalOverlay').style.opacity = '1', 10);
-            
-            const sheet = document.getElementById(type === 'transaction' ? 'modalTransaction' : 'modalInvestment');
-            sheet.style.bottom = '0';
-        }
-
-        function closeModal() {
-            document.getElementById('modalOverlay').style.opacity = '0';
-            document.querySelectorAll('.modal-sheet').forEach(el => el.style.bottom = '-100%');
-            setTimeout(() => document.getElementById('modalOverlay').style.display = 'none', 300);
-        }
+        function resetAll() { if(confirm('CANCELLARE TUTTO?')) { db = { transactions: [], investments: [], categories: ["Spesa"] }; saveDB(); } }
 
         // INIT
         renderAll();
